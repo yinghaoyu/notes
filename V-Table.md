@@ -22,7 +22,7 @@ public:
 
 <div align="center">
 
-![20200909_1](/20200909_1.png)
+![20200909_1](/images/20200909_1.png)
 
 </div>
 
@@ -32,7 +32,7 @@ public:
 
 <div align="center">
 
-![20200909_2](/20200909_2.png)
+![20200909_2](/images/20200909_2.png)
 
 </div>
 
@@ -40,7 +40,7 @@ ChildA没有重载任何FatherA的函数，那么ChildA的虚函数表如下：
 
 <div align="center">
 
-![20200909_3](/20200909_3.png)
+![20200909_3](/images/20200909_3.png)
 
 </div>
 
@@ -52,7 +52,7 @@ ChildA没有重载任何FatherA的函数，那么ChildA的虚函数表如下：
 
 <div align="center">
 
-![20200909_4](/20200909_4.png)
+![20200909_4](/images/20200909_4.png)
 
 </div>
 
@@ -60,7 +60,7 @@ ChildA重载了FatherA的funA函数，那么ChildA的虚函数表如下：
 
 <div align="center">
 
-![20200909_5](/20200909_5.png)
+![20200909_5](/images/20200909_5.png)
 
 </div>
 
@@ -72,7 +72,7 @@ ChildA重载了FatherA的funA函数，那么ChildA的虚函数表如下：
 
 <div align="center">
 
-![20200909_6](/20200909_6.png)
+![20200909_6](/images/20200909_6.png)
 
 </div>
 
@@ -80,7 +80,7 @@ ChildB没有重载任何FatherA、FatherB、FatherC的函数，那么ChildB的�
 
 <div align="center">
 
-![20200909_7](/20200909_7.png)
+![20200909_7](/images/20200909_7.png)
 
 </div>
 
@@ -92,7 +92,7 @@ ChildB没有重载任何FatherA、FatherB、FatherC的函数，那么ChildB的�
 
 <div align="center">
 
-![20200909_8](/20200909_8.png)
+![20200909_8](/images/20200909_8.png)
 
 </div>
 
@@ -100,7 +100,7 @@ ChildB覆盖了FatherA、FatherB、FatherC的funA、funB、析构函数，那么
 
 <div align="center">
 
-![20200909_9](/20200909_9.png)
+![20200909_9](/images/20200909_9.png)
 
 </div>
 
@@ -197,7 +197,7 @@ int main()
 
 <div align="center">
 
-![20200909_10](/20200909_10.png)
+![20200909_10](/images/20200909_10.png)
 
 </div>
 
