@@ -21,7 +21,7 @@ sizeof(int* [10]) = 40
 
 <div align="center">
 
-![ptrArray](/ptrArray.png)
+![ptrArray](/images/ptrArray.png)
 
 </div>
 
@@ -37,7 +37,7 @@ sizeof(int (*)[10]) = 4
 
 <div align="center">
 
-![arrayPtr](/arrayPtr.png)
+![arrayPtr](/images/arrayPtr.png)
 
 </div>
 
@@ -234,7 +234,7 @@ int main(void)
 
 <div align="center">
 
-![littleEndian](/littleEndian.png)
+![littleEndian](/images/littleEndian.png)
 
 </div>
 
