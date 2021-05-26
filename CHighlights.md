@@ -1,5 +1,3 @@
-这是笔者的学习C语言的小磕碰，大多数都是细节问题。
-
 1. 
 | 字符 | ASCII码 |
 |:-|:-|
@@ -559,7 +557,24 @@
 		}
 	}
 	```
-
+47. 重载类相似功能操作符，这么写比较巧妙，例如字符串的比较：
+	```cpp
+	// Taken from PCRE pcre_stringpiece.h
+	#define STRINGPIECE_BINARY_PREDICATE(cmp,auxcmp)                             \
+  	bool operator cmp (const StringPiece& x) const {                           \
+    	int r = memcmp(ptr_, x.ptr_, length_ < x.length_ ? length_ : x.length_); \
+   	 return ((r auxcmp 0) || ((r == 0) && (length_ cmp x.length_)));          \
+ 	 }
+ 	 STRINGPIECE_BINARY_PREDICATE(<,  <);
+ 	 STRINGPIECE_BINARY_PREDICATE(<=, <);
+ 	 STRINGPIECE_BINARY_PREDICATE(>=, >);
+  	STRINGPIECE_BINARY_PREDICATE(>,  >);
+	#undef STRINGPIECE_BINARY_PREDICATE
+	```
+48. 在编译时诊断T类型长度，通过声明一个负值数组
+	```cpp
+	typedef char T_must_be_complete_type[sizeof(T) == 0 ? -1 : 1];
+	```
 本博客所有原创文章均采用[CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)许可协议。
 
 您可以复制共享、演绎创作，但不得用于商业目的，转载请注明原创作者 **raining888** 。
