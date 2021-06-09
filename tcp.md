@@ -6,6 +6,8 @@ MSL:Maximum Segment Lifetime
 
 > 11种。分别为CLOSED, SYN_SEND, SYN_RECVD, ESTABLISH, LISTEN, FIN_WAIT-1, CLOSE_WAIT, FIN_WAIT_2, LAST_ACK, TIME_WAIT, CLOSING。其中CLOSING状态是A、B两端同时发起close时，产生的中间状态。
 
+![tcp2](/images/tcp2.png)
+
 2. 如何解决过多的TIME_WAIT状态？
 
 > TIME_WAIT一般是主动发起close方的状态，可以对socket设置SO_REUSEADDR选项。
