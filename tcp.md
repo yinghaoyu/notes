@@ -22,7 +22,7 @@ MSL:Maximum Segment Lifetime
 
 5. showdown和close有什么区别？
 
-> close不管输出缓冲区中是否还有数据，而shutdown会等输出缓冲区中的数据传输完毕再发送FIN包。也就意味着，调用close将丢失输出缓冲区中的数据，而调用shutdown不会。shotdown可以单向关闭写或读。
+> close不管输出缓冲区中是否还有数据，而shutdown会等输出缓冲区中的数据传输完毕再发送FIN包。也就意味着，调用close将丢失输出缓冲区中的数据，而调用shutdown不会。shotdown可以单向关闭写或读（half-close）。
 
 本博客所有原创文章均采用[CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)许可协议。
 
