@@ -20,7 +20,12 @@ MSL:Maximum Segment Lifetime
 
 > close后，socket**引用计数为0**，会发送FIN包，否则不会发送。因为有可能子进程继承了父进程的fd，没有对socket设置SOCK_CLOEXEC选项。
 
-5. showdown和close有什么区别？
+5. 什么时候会发送RST包？
+
+> 主要有三种情况。一，建立连接的SYN到达某端口，但是该端口上没有正在监听的服务。二，TCP收到了一个根本不存在的连接上的分节，例如主机崩溃后重启，它的TCP丢失了崩溃前的所有连接信息。
+三，请求超时，例如KeepAlive超时，会发送RST包。
+
+6. showdown和close有什么区别？
 
 > close不管输出缓冲区中是否还有数据，而shutdown会等输出缓冲区中的数据传输完毕再发送FIN包。也就意味着，调用close将丢失输出缓冲区中的数据，而调用shutdown不会。shotdown可以单向关闭写或读（half-close）。
 
