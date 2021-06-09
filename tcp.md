@@ -1,4 +1,4 @@
-![tcp](/images/tcp.png)
+![tcp1](/images/tcp1.png)
 
 MSL:Maximum Segment Lifetime
 
