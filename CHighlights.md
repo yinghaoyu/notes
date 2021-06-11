@@ -12,7 +12,7 @@
 	int m =(n>6)&&(n<8);
 	```
 
-3. 尽量用double型，float型的精度约为6~7位，double型有15~16位，例如：
+3. 尽量用double型，float型的精度约为6 ~ 7位，double型有15 ~ 16位，例如：
 	```c
 	float f1=8765.4;
 	float f2=8765.4;
