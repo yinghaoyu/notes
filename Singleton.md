@@ -61,7 +61,7 @@ T* Singleton<T>::value_ = NULL;  // 全局静态变量
 ## DCL版本的Singleton
 
 DCL即double-checked locking。在普通加锁的写法中，每次调用getInstance都会进入临界区，这样在heavy contention的情况下该函数就会成为系统性能的瓶颈，
-这个时候就有先驱者们想到了DCL写法，也就是进行两次check，当第一次check为假时，才加锁进行第二次check
+这个时候就有先驱者们想到了DCL写法，也就是进行**两次check**，当第一次check为假时，才加锁进行第二次check
 
 ```cpp
 template<typename T>
@@ -280,7 +280,7 @@ typename Singleton<T>::Helper Singleton<T>::helper_;
 
 这种写法有一个前提就是**不能在main函数执行之前调用getInstance**，因为c++标准只保证静态变量在main函数之前之前被构造完成。
 
-可能有人会说如果helper的初始化先于value_初始化的话，那么helper_初始化的时候就会使用尚没有被初始化的value_，这个时候使用其返回的对象就会出现问题，或者在后面value_「真正」初始化的时候会覆盖掉helper_初始化时赋给value_的值。
+可能有人会说如果helper的初始化先于value_初始化的话，那么helper_初始化的时候就会使用尚没有被初始化的value_，这个时候使用其返回的对象就会出现问题，或者在后面value_**真正**初始化的时候会覆盖掉helper_初始化时赋给value_的值。
 
 实际上这种情况不会发生，value_的初始化一定先于helper_，因为C++标准保证了这一行为：
 
