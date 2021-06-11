@@ -185,7 +185,7 @@ printf("%d\n",sizeof(a[3]));			//16，超出数组a的行地址，已越界
 - **Case 6**
 
 ``` c
-int main(void)
+int main()
 {
 	int a[5] = { 1, 2, 3, 4, 5 };
 	int *ptr = (int *)(&a + 1);
@@ -208,7 +208,7 @@ struct Test
 	short sBa[4];
 }*p;
 //假设p 的值为0x100000。 如下表表达式的值分别为多少？
-int main(void)
+int main()
 {
     printf("%p\n", p + 0x1);					//0x100014
     printf("%p\n", (unsigned long)p + 0x1);		//0x100001
@@ -220,7 +220,7 @@ int main(void)
 - **Case 8**
 
 ``` c
-int main(void)
+int main()
 {
     int a[4] = { 1, 2, 3, 4 };					
     int* ptr1 = (int*)(&a + 1);				
@@ -245,7 +245,7 @@ int main(void)
 - **Case 9**
 
 ``` c
-int main(void)
+int main()
 {
     int a[3][2] = { (0, 1), (2, 3), (4, 5) };
     int *p;
@@ -261,7 +261,7 @@ int main(void)
 - **Case 10**
 
 ``` c
-int main(void){
+int main(){
     int a[5][5];
     int(*p)[4];
     p = (int (*)[4]) a;
@@ -294,7 +294,7 @@ int main(void){
 - **Case 11**
 
 ``` c
-int main(void)
+int main()
 {
     int aa[2][5] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
     int *ptr1 = (int *)(&aa + 1);							//偏移量为1个aa数组
@@ -310,7 +310,7 @@ int main(void)
 - **Case 12**
 
 ``` c
-int main(void)
+int main()
 {
     char *a[] = {"work","at","alibaba"};
     char**pa = a;
@@ -324,7 +324,7 @@ int main(void)
 - **Case 13**
 
 ``` c
-int main(void)
+int main()
 {
     char* c[] = {"ENTER","NEW","POINT","FIRST"};		//指针数组，每个元素存放类型为char*，c为char**
     char** cp[] = {c+3,c+2,c+1,c};						//指针数组，每个元素存放类型为char**，cp为char***
@@ -342,6 +342,123 @@ int main(void)
 ```
 
 > 注意，单目运算符从右向左依次运算。
+
+- **C++中的对象指针**
+
+```cpp
+class A
+{
+public:
+    int a;
+};
+
+class B
+{
+public:
+    double b;
+};
+
+class D:public A, public B
+{
+};
+
+int main()
+{
+    D d;
+    D* d = &d;
+    B* b = &d;
+    printf("b = %p\n", b);  // 0019FF0C
+    printf("d = %p\n", d);  // 0019FF04
+    if (b == d)
+    {
+        printf("b == d\n");  //实际上，b和d的值不相等，却输出b==d
+    }
+    else
+    {
+        printf("b != d\n");
+    }
+    return 0;
+}
+```
+1. 当2个指针的静态类型以及所指对象的类型都**属于同一个继承层次结构**，其中一个指针类型是所指对象的静态类型，指针的比较，实际上比较的是两个指针是否指向同一个对象。
+若2个指针指向同一个对象，被编译器决议为相等。编译器会在比较的时候隐式加上offset:
+
+```cpp
+if((b - sizeof(A) == d)
+```
+
+offset是由c++对象的内存模型决定的，详细请参考《深度探索C++对象模型》（候捷）。
+
+若2个指针指向不同的对象，就被决议为不相等，并且比较的是指针保存的地址的值的大小。
+
+```cpp
+int main()
+{
+    D d1;
+    D d2;
+    D* d = &d1;
+    B* b = &d2;
+    printf("%p\n", d);
+    printf("%p\n", b);
+    if (d < b)
+    {
+        printf("d < b\n");  // 栈地址向上增长，输出d < b
+    }
+    else if (d == b)
+    {
+        printf("d == b\n");
+    }
+    else
+    {
+        printf("d > b\n");  // 栈地址向下增长，输出d > b
+    }
+    return 0;
+}
+```
+
+2. 当2个指针的静态类型**不属于同一个继承层次结构**，但是2个指针都指向同一个对象的时候，该比较是违法行为，会报编译错误
+
+```cpp
+int main()
+{
+    D d;
+    D* d = &d;
+    int* b = reinterpret_cast<int*>(&d);
+    printf("b = %p\n", b);
+    printf("d = %p\n", d);
+    if (b == d)  // error 没有从D *到int *的转换
+    {
+        printf("b == d\n");
+    }
+    else
+    {
+        printf("b != d\n");
+    }
+    return 0;
+}
+```
+
+3. 当2个指针的**静态类型以及所指对象类型都属于同一个继承层次结构**，但是2个指针的静态类型都不是所指对象的类型时，该比较是违法行为，编译器会报编译期错误：
+
+```cpp
+int main()
+{
+    D d;
+    B* b = &d;
+    A* a = &d;
+    printf("b = %p\n", b);
+    printf("a = %p\n", a);
+    if (b == a)  // error 没有从BaseA *到BaseB *的转换
+    {
+        printf("b == a\n");
+    }
+    else
+    {
+        printf("b != a\n");
+    }
+    return 0;
+}
+```
 
 本博客所有原创文章均采用[CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)许可协议。
 
