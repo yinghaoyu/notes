@@ -34,7 +34,3 @@ MSL:Maximum Segment Lifetime
 7. 什么情况下出现TCP自连接？
 
 > 在发起连接时，TCP/IP的协议栈会先选择source IP和source port，在没有显示调用bind的情况下，source IP由路由表确定，source port由TCP/IP协议栈从local port range中选取尚未使用的port。如果destination IP正好是本机，而destination port位于local port range，且没有服务器监听(listen)的话，source port可能正好选中了destination port，这就出现了（source IP，source port）=（destination IP，destination port）的情况，即发生了自连接。
-
-本博客所有原创文章均采用[CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)许可协议。
-
-您可以复制共享、演绎创作，但不得用于商业目的，转载请注明原创作者 **raining888** 。
