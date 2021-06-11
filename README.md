@@ -1,1 +1,1 @@
-# This is Notes from raining888.
+# Study notes from raining888, you can quote, but not for commercial purposes, thank you!
