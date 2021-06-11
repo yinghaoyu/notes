@@ -27,7 +27,7 @@ T* Singleton<T>::value_ = NULL;  // 全局静态变量
 
 ## 多线程模式下的Singleton
 
-上面单线程版本存在race condition，从而产生多次初始化的情况
+上面单线程版本存在race condition，从而产生**多次初始化**的情况
 
 ```cpp
 template<typename T>
@@ -109,7 +109,7 @@ T* Singleton<T>::value_ = NULL;  // 全局静态变量
 
 因为第一次check没有上锁保护，那么在线程b中调用getInstance的时候，不会在第一次check上等待，而是执行这一句，那么此时value_已经被赋值了，就会直接返回`*value_`然后执行后面使用t类型对象的语句，但是在a线程中步骤3还没有执行！
 
-也就是说在b线程中通过getInstance返回的对象还没有被构造就被拿去使用了！这样就会发生一些难以debug的灾难问题。
+也就是说在b线程中通过getInstance**返回的对象还没有被构造**就被拿去使用了！这样就会发生一些难以debug的灾难问题。
 
 volatile关键字也不会影响执行顺序的不确定性。
 
@@ -278,7 +278,7 @@ typename Singleton<T>::Helper Singleton<T>::helper_;
 
 在进入main之前就把singleton对象构造出来就可以避免在进入main函数后的多线程环境中构造的各种情况了。
 
-这种写法有一个前提就是不能在main函数执行之前调用getInstance，因为c++标准只保证静态变量在main函数之前之前被构造完成。
+这种写法有一个前提就是**不能在main函数执行之前调用getInstance**，因为c++标准只保证静态变量在main函数之前之前被构造完成。
 
 可能有人会说如果helper的初始化先于value_初始化的话，那么helper_初始化的时候就会使用尚没有被初始化的value_，这个时候使用其返回的对象就会出现问题，或者在后面value_「真正」初始化的时候会覆盖掉helper_初始化时赋给value_的值。
 
@@ -345,17 +345,17 @@ template<typename T>
 typename Singleton<T>::Dummy Singleton<T>::dummy_;
 ```
 
-这样就可以了。dummy_的作用是即使在main函数之前没有调用getInstance，它依然会作为最后一道屏障保证在进入main函数之前构造完成Singleton对象。
+这样就可以了。dummy_的作用是即使在main函数之前没有调用getInstance，它依然会**作为最后一道屏障保证在进入main函数之前构造完成Singleton对象**。
 
 这样就避免了在进入main函数后的多线程环境中初始化的各种问题了。
 
-但是此种方法只能在main函数执行之前的环境是单线程的环境下才能正确工作。
+但是此种方法**只能在main函数执行之前的环境是单线程的环境下**才能正确工作。
 
 ## 总结
 
 实际上，上文所讲述了各种写法中，有一些不能在main函数之前调用。有一些可以在main函数之前调用，但是必须在进入main之前的环境是单线程的情况下才能正常工作。
 
-总之，个人建议最好不要在进入main函数之前获取Singleton对象。因为上文中的各种方法都用到了staitc member，而c++标准只保证static member在进入main函数之前初始化，但是不同编译单元之间的static member的初始化顺序却是未定义的， 所以如果在main之前就调用getInstance的话，就有可能出现实现Singleton的static member还没有初始化就被使用的情况。
+总之，个人建议最好不要在进入main函数之前获取Singleton对象。因为上文中的各种方法都用到了staitc member，而c++标准**只保证static member在进入main函数之前初始化，但是不同编译单元之间的static member的初始化顺序却是未定义的**， 所以如果在main之前就调用getInstance的话，就有可能出现实现Singleton的static member还没有初始化就被使用的情况。
 
 如果万一要在main之前获取Singleton对象，并且进入main之前的环境是多线程环境，这种情形下，还能保证正常工作的写法只有C++ 11下的Meyers Singleton，或者如g++ 4.0及其后续版本这样的编译器提前支持内存模型情况下的C++ 03也是可以的。
 
