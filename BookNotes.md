@@ -1,6 +1,3 @@
-根据《More Effective C++》和《C++沉思录》总结的学习笔记。
-
-
 面向对象编程有3个要素：**数据抽象、继承以及动态绑定**。
 ## One 代理类（Surrogate）
 
@@ -1424,7 +1421,6 @@ echo(cin);
 
 echo(noecho(cin)>>pasword);简单!
 
-
-本博客所有原创文章均采用[CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)许可协议。
-
-您可以复制共享、演绎创作，但不得用于商业目的，转载请注明原创作者 **raining888** 。
+## 参考文献
+1. Scott Meyers. [Effective C++:55 Specific Ways to Improve Your Programs and Designs,3rd Edition. 电子工业出版社, 2011](https://book.douban.com/subject/5387403/)
+2. Andrew Koenig / Barbara Moo. [C++沉思录. 人民邮电出版社, 2008](https://book.douban.com/subject/2970056/)
