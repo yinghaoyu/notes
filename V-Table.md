@@ -312,7 +312,3 @@ void funD()//与funY对比，说明前一个析构，改变了b->~B()的析构�
 	b->~B();//依次输出 ~A
 }
 ```
-
-本博客所有原创文章均采用[CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)许可协议。
-
-您可以复制共享、演绎创作，但不得用于商业目的，转载请注明原创作者 **raining888** 。
