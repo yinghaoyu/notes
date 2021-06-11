@@ -71,7 +71,3 @@ int tsub_ok(int x, int y)
     return tadd_ok(x, -y);
 }
 ```
-
-本博客所有原创文章均采用[CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)许可协议。
-
-您可以复制共享、演绎创作，但不得用于商业目的，转载请注明原创作者 **raining888** 。
