@@ -1,6 +1,4 @@
-根据《深入理解计算机系统（第3版）》总结的学习笔记。
-
-- **背景**
+- **例子分析**
 
 编写函数tsub_ok的代码，参数是x和y，执行的运算是x-y，如果计算x-y不产生溢出，函数就返回1.假设你写的代码如下：
 
@@ -71,3 +69,5 @@ int tsub_ok(int x, int y)
     return tadd_ok(x, -y);
 }
 ```
+## 参考文献
+1. Randal E.Bryant, David O’Hallaron. [深入理解计算机系统(第2版). 机械工业出版社, 2010](https://book.douban.com/subject/5333562/)
