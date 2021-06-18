@@ -57,3 +57,16 @@ AND user_group.user_id = user.id
 SELECT sign FROM user_profile WHERE user_id = ?
 ```
 > 方案一对user_profile表有不必要的访问（非群主的profile信息），造成IO访问的直接增加。
+
+## 充分利用 Explain 和 和  Profiling
+
+```sql
+explain select * from obj_table where id = 1;
+
+set profiling = 1;  // 开启剖析功能
+select select * from obj_table where id = 1;
+show profiles;
+show profile cpu,block io for query 1;  // 针对单个 Query 获取详细的 profile 信息，1为show profiles中得到的某个id
+
+show processlist; // 查看数据库连接
+```
