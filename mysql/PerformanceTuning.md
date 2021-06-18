@@ -56,5 +56,4 @@ AND user_group.user_id = user.id
 
 SELECT sign FROM user_profile WHERE user_id = ?
 ```
-> 对user_profile表有不必要的访问（非群主的profile信息），造成IO访问的直接增加。
-
+> 方案一对user_profile表有不必要的访问（非群主的profile信息），造成IO访问的直接增加。
