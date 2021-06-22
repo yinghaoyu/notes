@@ -1,5 +1,3 @@
-[Explain examples](https://www.php.cn/mysql-tutorials-454417.html)
-
 ## explain作用
 通过explain可以分析查询语句或表结构的性能瓶颈。可以得出以下结果：
 - 表的读取顺序
