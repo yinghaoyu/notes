@@ -167,3 +167,4 @@ where子句的值**总是false**，不能用来获取任何元组
 
 1. Ben Forta. [MySQL必知必会. 人民邮电出版社, 2009](https://book.douban.com/subject/3354490/)
 2. 简朝阳. [MySQL性能调优与架构设计. 电子工业出版社, 2009](https://book.douban.com/subject/3729677/)
+3. 青灯夜游. [MySQL中explain用法和结果分析](https://www.php.cn/mysql-tutorials-454417.html)
