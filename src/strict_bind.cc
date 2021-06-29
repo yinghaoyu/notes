@@ -1,5 +1,3 @@
-#ifndef GUARD_BIND_H
-#define GUARD_BIND_H
 namespace
 {
 
@@ -194,4 +192,13 @@ BindImpl<Func, BindList2<T1, T2> > bind(Func func, T1 data1, T2 data2)
   return BindImpl<Func, BindList2<T1, T2> >(func, BindList2<T1, T2>(data1, data2));
 }
 
-#endif
+int add(int a, int b)
+{
+  printf("a + b = %d\n", a+b);
+  return a+b;
+}
+int main()
+{
+  bind(add, _1, _2)(10, 20);
+  return 0;
+}
