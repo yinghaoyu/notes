@@ -1,4 +1,27 @@
-基本目标如下：
+先了解一下函数对象
+
+[函数对象](https://github.com/raining888/notes/blob/main/BookNotes.md#six-%E5%87%BD%E6%95%B0%E5%AF%B9%E8%B1%A1)
+
+我们首先线想到bind参数分为两种，一种是用户创建bind的时候提供的L，另一种是 调用bind的operator()()的时候提供的A.
+
+很显然，L 和 A 都可能有多个，多个 A 可以通过重载不同版本的 operator() 来解决，比 如：
+```cpp
+template <typename F, typename L>
+class funobj {
+    F f_;
+    L l_;
+public:
+    template<typename A>
+    operator()(A a);            // 单个参数
+
+    template<typename A1, typename A2>
+    operator()(A1 a1, A2 a2);   // 两个参数
+
+    ...
+};
+```
+    
+步入正题，基本目标如下：
 
 - 支持接收0个参数的函数/函数指针，函数对象。
 
@@ -11,7 +34,7 @@
 首先，解决占位符的问题：
 
 ```cpp
-namespace
+namespace  //防止不同编译单元中的命名冲突， 让占位符对象只在其所在的编译单元中可见。
 {
 
 struct Placeholders1
@@ -25,11 +48,14 @@ struct Placeholders2
 }
 ```
 
-使用匿名namespace的原因是防止不同编译单元中的命名冲突， 让占位符对象只在其所在的编译单元中可见。
+在boost::bind源码中主要是通过2个list表维持各种相关信息。
 
-在boost::bind源码中主要是通过2个list表维持各种相关信息。一个bindlist表维持了bind接收的绑定参数，包括占位符，用户传入的变量等。一个calllist维持了调用bind返回的对象时所传入的参数信息。它们的通过继承层次的方式来表现的。
+一个bindlist表维持了bind接收的绑定参数，包括占位符，用户传入的变量等。
+
+一个calllist维持了调用bind返回的对象时所传入的参数信息。它们的通过继承层次的方式来表现的。
 
 下面这个继承层次的每一个类都要作为对应的bindlist和calllist层次中的基类，它们分别保存了bind接收的绑定参数信息（用户传入的变量，占位符），以及调用bind返回的对象时所传入的参数信息。使用匿名namespace的原因是防止不同编译单元中的命名冲突， 让占位符对象只在其所在的编译单元中可见。
+
 在boost::bind源码中主要是通过2个list表维持各种相关信息。一个bindlist表维持了bind接收的绑定参数，包括占位符，用户传入的变量等。一个calllist维持了调用bind返回的对象时所传入的参数信息。它们的通过继承层次的方式来表现的。
 
 下面这个继承层次的每一个类都要作为对应的bindlist和calllist层次中的基类，它们分别保存了bind接收的绑定参数信息（用户传入的变量，占位符），以及调用bind返回的对象时所传入的参数信息。
@@ -205,7 +231,8 @@ protected:
     Bind bindlist_;
 };
 ```
-如此，基本的轮廓就已经出来了。bind函数返回一个BindImpl对象，里面保存了注册的函数和bind接收的占位符、参数信息。当我们调用这个对象的时候，会生成一个calllist对象，它保存了调用BindImpl对象时所传入的参数，然后在bindlist中调用注册的函数。
+bind函数返回一个BindImpl对象，里面保存了注册的函数和bind接收的占位符、参数信息。当我们调用这个对象的时候，会生成一个calllist对象，它保存了调用BindImpl对象时所传入的参数，然后在bindlist中调用注册的函数。
+
 需要的注意的是，在bindlist调用函数时我们转而调用了calllist的operator[]函数，通过它来判断传入的参数是占位符还是用户传入的参数，如果是占位符，那么就返回calllist中保存的之前注册的用户传入的信息。如果不是占位符，operator[]函数就单纯的返回他接收的参数，也就是之前用户调用BindImpl时传入的参数。
 
 最后，我们通过一组重载的bind函数来实现对接收0个参数、1个参数、2个参数的支持，它们返回的是一个BindImpl对象。
