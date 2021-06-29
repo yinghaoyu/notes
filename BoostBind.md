@@ -258,7 +258,7 @@ boost::bind(bar, std::placeholder::_1, std::placeholder::_2);
 
 ## 源码
 
-1. [《bind贴合本文的简单实现》](https://github.com/raining888/notes/blob/main/src/strict_bind.cc)
+1. [《bind贴合本文的简单实现》](https://github.com/raining888/notes/blob/main/src/bind_t.cc)
 
 2. [《bind的简单实现2》](https://github.com/raining888/notes/blob/main/src/strict_bind.cc)
 
