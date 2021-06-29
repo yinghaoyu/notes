@@ -1,11 +1,11 @@
 ## boost::bind实现分析
-### 函数对象
+### 1. 函数对象
 
 如果你不懂函数对象，请先了解一下函数对象
 
 [《函数对象》](https://github.com/raining888/notes/blob/main/BookNotes.md#six-%E5%87%BD%E6%95%B0%E5%AF%B9%E8%B1%A1)
 
-### bind的参数
+### 2. bind的参数
 
 我们首先线想到`bind`参数分为两种，一种是用户创建`bind`的时候提供的`L`，另一种是 调用`bind`的`operator()()`的时候提供的`A`。
 
@@ -62,7 +62,7 @@ BindImpl<F, List2> bind(F f, A1 a1, A2 a2)
     return BindImpl<F, List2>(f, list);
 }
 ```
-### BindImpl 的 operator() 的实现
+### 3. BindImpl 的 operator() 的实现
 
 首先在 `BindImpl` 中，由于并不知道 `L` 到底是几个参数（就像你在 `vector` 的定义中不可能知道你存 储的到底是什么类型）。
 
@@ -134,7 +134,7 @@ private:
     L l_;
 };
 ```
-### ListN 的 operator() 的实现
+### 4. ListN 的 operator() 的实现
 
 `ListN` 表示 `List1`，`List2`，`List3` 中的任何一个，这里以 `List2` 为例
 
@@ -193,7 +193,7 @@ private:
 ```
 这里的实现使用了一个C++比较偏门的特性，**在重载解析的时候，普通函数的优先级高于模板函数**，也就是说当遇到类型为 placeholder<1> 的参数时候，虽然模板函数也可以实例化出正确的函数，但是因为有一个不需要要实例化的普通函数存在，重载解析会选择调用普通的函数，也就是调用返回占位符对应的值的那个函数。
 
-### placeholder<1> 的作用
+### 5. placeholder<1> 的作用
 
 从上面的代码我们可以看出，实际上，`placeholder<1>` 只是用来做重载解析的分派用的， 我们需要的是它的类型而不是它的值，所以你会发现前面 `operator[]` 甚至没有给出参数名称。`placeholder<1>` 的定义非常简单：
 
@@ -206,7 +206,7 @@ placeholder<3> _3;
 ```
 这种把数值当类型的技巧可以参考《C++设计新思维》一书。相信现在你应该很清楚 std::placeholder::_1 是什么东西了吧。
 
-### 如果实际调用的参数比绑定的参数多会怎么样？
+### 6. 如果实际调用的参数比绑定的参数多会怎么样？
 
 boost::bind 有一个非常有意思的特性那就是你可以提供比绑定的参数更多的实际参数，多出来的这些参数会被自动忽略掉。
 
@@ -237,7 +237,7 @@ operator()(F f, L l)
 ```
 上面这个调用最终变成了`fun(20)`，也就是说 `30` 这个参数默默的被吞掉了。
 
-###  作用
+###  7. 忽略参数的作用
 
 这种看似诡异的行为其实有它独特的作用，那就是选择性的忽略掉你不想处理参数，比如你 有一个回调函数的原型如下：
 
@@ -256,7 +256,7 @@ boost::bind(bar, std::placeholder::_1, std::placeholder::_2);
 ```
 这种灵活性使用`lambda`好像没有办法实现。
 
-## 源码
+## 8. 源码
 
 1. [《bind贴合本文的简单实现》](https://github.com/raining888/notes/blob/main/src/bind_t.cc)
 
