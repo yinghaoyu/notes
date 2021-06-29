@@ -1,6 +1,3 @@
-#ifndef GUARD_BIND_T_H
-#define GUARD_BIND_T_H
-
 template<int I>
 class placeholder{};
 
@@ -91,4 +88,19 @@ private:
   L l_;
 };
 
-#endif
+int fun(int a)
+{
+  printf("a = %d\n", a);
+  return 0;
+}
+
+int main()
+{
+  bind_t<int(*)(int), List1<placeholder<1> > > binder(fun, _1);
+  binder(20);
+  binder(20,30);
+
+  Bind_t<int(*)(int), List1<int> > binder2(fun, 30);
+  binder2(20);
+  return 0;
+}
