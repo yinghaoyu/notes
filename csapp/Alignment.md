@@ -57,6 +57,25 @@ E. struct P5{struct P3 a[2]; struct P2 t;};
 |:--:|:--:|:--:|:--:|
 |0|24|40|8|
 
+## 一种计算对齐方式的函数
+
+```cpp
+#define SKB_DATA_ALIGN(X)    (((X) + (SMP_CACHE_BYTES - 1)) & \
+                             ~(SMP_CACHE_BYTES - 1))
+```
+另 `SMP_CACHE_BYTES - 1` 为 `mask` 则上面的宏定义简化成 `（x + mask）& （～mask）`，
+
+首先加上 `mask` 使得不够 `SMP_CACHE_BYTES` 的部分先补齐，然后 `& ～mask` 其实就是把数据不足 `SMP_CACHE_BYTES` 的部分清除掉。
+
+比如 `SMP_CACHE_BYTES = 4 （100）`，那 么 `mask = 3 （011）`。
+
+假设 `x = 3`，那么最后的结果是 `110（6 = 3 + 3）& 100（～3）= 100（4）`。
+
+假设 `x = 1`，那么结果就是 `100（4 = 1 + 3） & 100 （～3） = 100（4）`。
+
+假 设 `x= 5` ，那么最后的结果是 `1000（8 = 5 + 3） &（1100） = 1000（8）`。
+
+假设 `x = 7`， 那么结果是 `1010（10 = 7 + 3） & 1100（～3） = 1000 （8）`。
 
 ## 参考文献
 1. Randal E.Bryant, David O’Hallaron. [深入理解计算机系统(第2版). 机械工业出版社, 2010](https://book.douban.com/subject/5333562/)
