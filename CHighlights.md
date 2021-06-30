@@ -575,3 +575,28 @@
 	```cpp
 	typedef char T_must_be_complete_type[sizeof(T) == 0 ? -1 : 1];
 	```
+49. 在下面这段代码中结构体 packet_head 有一个成员 content 是一个长度为 0 的数组 。这种用法在 C 标准中并不存在，它是 GCC 的一个扩展用法。在编写网络协议实现的时候 用的比较多，在包头的结构体末尾定义一个这样的成员可以使得它指向包头后面的数据部分 。比如在上面的例子中，malloc 分配了包头和数据的空间，把返回值转换成包头类型， 从而使用 packet->content 来控制数据部分。
+	```cpp
+	#include <stdio.h>
+	#include <stdlib.h>
+	#include <string.h>
+
+	struct packet_head {
+		int  len;
+		char content[0];
+	};
+
+	int main(void)
+	{
+		char content[] = "hello world";
+		struct packet_head *packet;
+
+		packet = malloc(sizeof(struct packet_head) + sizeof(content));
+		packet->len = sizeof(content);
+
+		memcpy(packet->content, content, sizeof(content));
+		printf("len: %d, content: %s\n", packet->len, packet->content);
+
+		return 0;
+	}
+	```
