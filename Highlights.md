@@ -576,9 +576,7 @@
 	typedef char T_must_be_complete_type[sizeof(T) == 0 ? -1 : 1];
 	```
 49. 这个宏定义有两个地方值得注意：第一就是 !!(condition) 的使用，我们知道在 C 语言中 使用 非0 表示真，0表示假（而不是 1 表示真，0 表示假）。如果你想强制使用 1 表示真 ，0 表示假的话可以使用 !!(condition)。因为两次使用逻辑否运算不会改变 condition 到逻辑属性，但是因为逻辑运算到结果在 c 语言中用 1 表示真，0 表示假，所以最后到结 构可以保证一定使用 1 表示真，0 表示假。
-
 第二个值得注意到地方就是 char[1 - 2 !!(condition)] 这种写法，因为 !!(condition) 结果只能是0、1，所以 1 - 2 condition) 的结果只可能是 1 或者 -1（ 当 condition 为真的时候结果是 1 - 2 = -1，当 condition 为假的时候结果时 1 - 0 = 1）。这样一来，如果 condition 为真，那么最终这个宏会被扩展成 (void)sizeof(char[-1])，显然这个表达式无法通过编译，因为 char[-1] 时非法的表达式 。
-
 这个宏定义的作用是在编译时确保某些条件成立，使得错误在编译期间就暴露出来，有点类 似与 assert() 的作用。
 	```cpp
 	#define BUILD_BUG_ON(condition) ((void)sizeof(char[1 - 2*!!(condition)]))
