@@ -113,22 +113,25 @@ Drived(const Drived& d) : Base(d)  // 在这里显示调用基类的拷贝构造
 你可以通过一个基类来封装第二步，因为默认生成的拷贝构造函数会自动调用基类的拷 贝构造函数，如果基类的拷贝构造函数是 private，那么它无法访问，也就无法正常 生成拷贝构造函数。
 
 ```cpp
-class NonCopyable
+class noncopyable
 {
+  typedef noncopyable self;
 protected:
-  NonCopyable() {}
-  ~NonCopyable() {}  // 构造函数和析构函数设置protected权限，这样子类可以调用，但是外面的类不能调用，那么当子类需要定义构造函数的时候不至于通不过编译。
+  // 构造函数和析构函数设置protected权限，这样子类可以调用，但是外面的类不能调用，那么当子类需要定义构造函数的时候不至于通不过编译。
+  noncopyable() {}
+  ~noncopyable() {}
 private:
-    NonCopyable(const NonCopyable&);  // 把拷贝构造函数和拷贝赋值函数做成了private的，继承自noncopyable的类在执行拷贝操作时会调用基类的拷贝操作，但是基类的拷贝操作是private的，因此无法调用，引发编译错误。
-    NonCopyable& operator=(const NonCopyable&);
+  // 把拷贝构造函数和拷贝赋值函数做成了private的，继承自noncopyable的类在执行拷贝操作时会调用基类的拷贝操作，但是基类的拷贝操作是private的，因此无法调用，引发编译错误。
+  noncopyable(noncopyable&) {}
+  self& operator=(noncopyable&) {}
 };
-
-class A : private NonCopyable  // 基类的成员全部变为private
+class A : private noncopyable  // 基类的成员全部变为private
 {
 };
-
-A a(A()); // 错误
+int main()
+{
+  A a;
+  A b(a);  // 编译错误，不会生成memberwise的拷贝构造函数。
+  A c(A()); // 出现warning，未定义行为，编译器认为这是函数声明
 ```
-上不会生成memberwise的拷贝构造函数。
-
 ## 参考文献
