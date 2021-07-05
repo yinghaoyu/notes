@@ -121,11 +121,11 @@ protected:
 private:
     NonCopyable(const NonCopyable&);  // 把拷贝构造函数和拷贝赋值函数做成了private的，继承自noncopyable的类在执行拷贝操作时会调用基类的拷贝操作，但是基类的拷贝操作是private的，因此无法调用，引发编译错误。
     NonCopyable& operator=(const NonCopyable&);
-}
+};
 
 class A : private NonCopyable  // 基类的成员全部变为private
 {
-}
+};
 
 A a(A()); // 错误
 ```
