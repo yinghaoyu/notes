@@ -8,6 +8,7 @@ const int* p = &num;
 int const* p = &num;// 这样的写法不科学，int* 应该当成一个整体，不过它的含义与上面的相同。
 int* const p = &num;
 ```
+[详细解释指针常量和常量指针](https://www.zhihu.com/question/443195492/answer/1723886545)
 
 > 对于第一种写法，`*p` 是不能改变的，即内容不可变；对于第三种写法，地址`p`是不能被改变的，即地址不可变。
 
