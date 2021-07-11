@@ -1,3 +1,5 @@
+" append this file in vimrc
+
 " compatible
 set nocompatible
 
@@ -40,8 +42,52 @@ set shiftwidth=2
 set textwidth=80
 " set colorcolumn=81
 
-" normal quick set
+" set split cursor
+"set splitright
+"set splitbelow
+
+
+" map
+" split cursor enter in 4 way
+map sl :set splitright<CR>:vsplit<CR>
+map sh :set nosplitright<CR>:vsplit<CR>
+map sk :set nosplitbelow<CR>:split<CR>
+map sj :set splitbelow<CR>:split<CR>
+" split cursor switch, <LEADER> means '\'
+map <LEADER>l <C-w>l
+map <LEADER>k <C-w>k
+map <LEADER>h <C-w>h
+map <LEADER>j <C-w>j
+" split size 
+map <up> :res +5<CR>
+map <down> :res -5<CR>
+map <left> :vertical resize-5<CR>
+map <right> :vertical resize+5<CR>
+" change split
+map cv <C-w>t<C-w>H
+map ch <C-w>t<C-w>K
+" tabe, enter a NoName tabe, in cmdline you can use 'e filename' to edit
+map tb :tabe<CR>
+map th :-tabnext<CR>
+map tl :+tabnext<CR>
+
 " placeholder <++>
 map <LEADER><LEADER> <ESC>/<++><CR>:nohlsearch<CR>c4l
 
+
+" normal quick set
+" go to the start of the line
+noremap <C-h> 0
+" go to the end of the line
+noremap <C-l> $
+
 nnoremap <F2> :set number!<CR>
+nnoremap <F3> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
+nnoremap <F4> :set wrap!<CR>
+nnoremap <F5> :split<CR>
+nnoremap <F6> :vsplit<cR>
+
+" vision quick set
+" vim clipboard to system clipboard, in cmdline 'echo has('clipboard')' if
+" return=0, means you should 'apt-get intall vim-gtk'
+vnoremap Y "+y
