@@ -1,26 +1,39 @@
-i insert
-shift + i > line begin
-a append
-shift + a > line end
-o new line next
-shift +o new line before
-x delete cur
-hjkl
+## Normal模式
+i=insert
+shift + i 从行首进入insert模式
 
+a=append
+shift + a 从行尾进入insert模式
+
+o 从下一新行进入insert模式
+shift + o 从上一新行进入insert模式
+
+x 删除光标字符（不进入insert模式）
+s 删除光标字符并进入inser模式
+
+左h 下j 上k 右l
+
+按键定位
 noremap E 5j 按一下E=5个j
 
-s delete and insert
-
 set hlsearch（hight search）查找高亮
+
 set incsearch边输入边高亮
+
 set ignorecase忽略大小写
+
 set smartcase搜索Max至显示Max，搜索max大小写MAX都显示
+
 syntax on 语法高亮
-set number/nonumber
-set relativenumber/ 显示分段set行号
+
+set number/nonumber 显示行号 
+set relativenumber 显示分段set行号
+
 set cursorline 显示鼠标线
+
 set warp 显示不超过屏幕，自动换行显示
-set showcmd
+
+set showcmd 命令行显示指令
 set wildmenu tab指令提示
 
 noremap n h 改键位
@@ -29,27 +42,30 @@ map s <nop>
 map R :source $MYVIMRC<CR>
 
 <operation><motion>
-d(delete)+方向右 往右边删除3字符
-d+方向左 往左边删除3字符
+d(delete)+方向右 往右边删除字符
+d+方向左 往左边删除字符
 d+3 + 方向左 往左边删除3字符
 重复操作表示对行操作，d + d 对行进行剪切 ，p粘贴
 相同操作c(change)会进入写入模式
 
-
 y复制操作，yy复制当前行（0行头$行尾）
+  
 
+```
+<hello> <text me> you
+```
 w(word)操作定位到每个词
-
 c(change)+i(in)+w(word)表示在某个词中删除并开始编辑
-<hello> <text me> you，光标在hello，删除hello并写入
+光标在hello，删除hello并写入
 
 光标在<text me>内。输入c+i+<会把text me全部删除并写入
 
 同理y+i+w 复制hello, y+i+<复制text me
 
+```
 this is vim : the best ...
+```
 f(find) v可以把光标移到vim开头find查找当前行，再按0可以回到行首
-
 d+f+：删除到冒号
 y+f+: 复制到冒号
 
@@ -72,7 +88,9 @@ ctrl + w + h分屏光标移动至左边
 ctrl+w+t+ctrl+w+H交换分屏方式
 ctrl+w+t+ctrl+w+K
 
-：color default 设置背景色
+:color default 设置背景色
+
+## Version模式
 
 v进入version模式，可以v后，上下左右选中+y复制
 
@@ -85,16 +103,15 @@ ctrl+v进入可视块 选中可以d操作，shift+i插入，按esc就生效
 set mouse=a设置鼠标可用
 set scrolloff = 5浏览时设置光标预留5行，保证到文件尾，看起来不舒服
 
-
 set spell拼写检查
 :z=会出现可供参考的词
 或者ctrl +x +s
 
-ctrl + o 和ctrl+i切换历史光标，可以跨文件
+ctrl + o 和ctrl+i切换历史光标，**可以跨文件**
 
 在normal模式gf+路径，打开文件
 
-没有sudo权限可用
+**没有sudo权限可用**
 :w+路径 可以保存进一个新文件
 w !sudo tee % !表示终端指令， %表示当前文件
 
