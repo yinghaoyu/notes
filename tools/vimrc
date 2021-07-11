@@ -1,0 +1,47 @@
+" compatible
+set nocompatible
+
+" encoding
+set encoding=utf-8
+
+" set cursorline
+set cursorline
+
+" set show command
+set showcmd
+
+" set tab clue
+set wildmenu
+
+" set mouse, not recommand
+" set mouse=a
+
+" reserve 5 line when you scan
+set scrolloff=5
+
+" set spell, in cmdline 'z=' to reference or ctrl+x+s
+"set spell
+
+" highlight search
+set hlsearch
+
+" search
+set ignorecase
+set smartcase
+
+" turn /t to backspace
+set expandtab
+" how many backspace
+set softtabstop=2
+" shift width
+set shiftwidth=2
+
+" no more than 80 characters each line, otherwise word warp
+set textwidth=80
+" set colorcolumn=81
+
+" normal quick set
+" placeholder <++>
+map <LEADER><LEADER> <ESC>/<++><CR>:nohlsearch<CR>c4l
+
+nnoremap <F2> :set number!<CR>
