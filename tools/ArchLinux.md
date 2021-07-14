@@ -172,3 +172,10 @@ reboot
 拔掉usb，或者移除虚拟usb
 dhcpcd & // 插网线没有网络，动态分配一个IP地址
 ```
+
+### 用户权限
+```
+useradd -m -G wheel rain  // -m表示添加一个家目录，-G wheel指定用户组为wheel，wheel为系统自带用户组
+visudo //把%wheel ALL=(ALL) (ALL)开放，wheel用户组就可以执行任何指令
+sudo pacman -Syyu //用rain登录测试下sudo
+```
