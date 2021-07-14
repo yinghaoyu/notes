@@ -179,3 +179,7 @@ useradd -m -G wheel rain  // -m表示添加一个家目录，-G wheel指定用�
 visudo //把%wheel ALL=(ALL) (ALL)开放，wheel用户组就可以执行任何指令
 sudo pacman -Syyu //用rain登录测试下sudo
 ```
+### 界面基本模式
+```
+sudo pacman -S xorg xorg-server
+```
