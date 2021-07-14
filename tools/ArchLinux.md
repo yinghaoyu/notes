@@ -169,4 +169,5 @@ pacman -S neovim vi zsh wpa_supplicant dhcpcd
 exit
 reboot
 拔掉usb，或者移除虚拟usb
+dhcpcd & // 插网线没有网络，动态分配一个IP地址
 ```
