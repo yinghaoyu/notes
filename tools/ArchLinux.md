@@ -161,7 +161,8 @@ grub-install --target=x86_64-efi --efi-directory=/boot //提示无错误则安�
 
 ```
 //其中wpa_supplicant和dhcpcd建议安装，联网用的
-pacman -S neovim vi zsh wpa_supplicant dhcpcd gcc git cmake man
+//base-devel为基础软件库
+pacman -S neovim vi zsh wpa_supplicant dhcpcd man base-devel
 ```
 
 ### 退出重启
