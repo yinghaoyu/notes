@@ -183,3 +183,9 @@ sudo pacman -Syyu //用rain登录测试下sudo
 ```
 sudo pacman -S xorg xorg-server
 ```
+
+sudo pacman -S xorg-xinit
+在/etc/X11/xinit/xinitrc加入exec dwm，输入startx就可以进入dwm了
+
+//yay包管理 tlp电池管理
+sudo pacman -S yay tlp
