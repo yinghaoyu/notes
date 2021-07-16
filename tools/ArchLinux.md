@@ -72,3 +72,56 @@ swapon /dev/sda3 // 开启交换分区
 ```
 vim /etc/pacman.conf // 没有编译器可以pycman -S vim下一个
 里
+```
+
+### 图形界面服务器
+```
+pacman -S xorg xorg-server
+
+pacman -S xorg-xint
+sudo pacman -S xorg-xinit
+在/etc/X11/xinit/xinitrc加入exec dwm，输入startx就可以进入dwm了
+
+pacman -Syyu后，root用户执行startx正常，而非root用户执行startx出现缺少模块错误。这个是为啥？
+```
+### yay包管理 tlp电池管理
+```
+sudo pacman -S yay tlp
+
+compton窗口渲染器(可选安装)
+```
+### pacman基本用法
+```
+(sync)pacman -S
+pacman -Sy(yank)//更新软件源
+pacman -Syy//强行更新更新软件源
+
+pacman -Syu(update)//更新软件源更新安装的软件
+pacman -Syyu(update)//强行更新软件源更新安装的软件
+
+pacman -Ss(search)//查找
+
+pacman -Sc//删除缓存的软件包
+
+(remove)pacman -Rs + name//删除软件和依赖包
+pacman -Rns + name//删除软件、依赖包和全局文件
+(query)pacman -Q + name//带参查询指定软件，不带参查询所有软件
+pacman -Q | wc -l//查询你装了多少个软件
+pacman -Qe | wc -l//查询你手动装了多少个软件
+pacman -Qeq//查询你手动装了什么软件
+
+pacman -Qs + name//查询你手动装了什么软件
+
+pacman -Qdt（dependences）//查询孤儿软件，不再需要的软件
+pacman -R $ (pacman -Qdtq) //删除所有孤儿软件
+
+/etc/pacman.conf//pacman的配置文件
+
+可以手动添加源（非必须）
+[archlinuxcn]
+SigLevel = Optional TrustedOnly
+Include = /etc/pacman.d/archlinuxcn //这个文件需要手动创建
+
+/etc/pacman.d/archlinuxcn
+添加Server=http地址
+```
