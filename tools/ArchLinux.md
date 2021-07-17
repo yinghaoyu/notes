@@ -1,18 +1,23 @@
-ArchLinux安装参考
+## ArchLinux安装参考
 虚拟机安装须在设置-系统-勾选启用EFI
 
-设置控制台字体（一般不设置）
+### 设置控制台字体（一般不设置）
+```
 setfont /usr/share/kbd/consolefonts/xxx.gz
 设置键盘布局为colemak（一般不设置）
 loadkeys colemak
-改键位（一般不设置）
+```
+### 改键位（一般不设置）
+```
 vim keys.conf
 //比如交换Caps_Lock与Escape
 keycode 1 = Caps_Lock
 keycode 58 = Escape
 //加载键盘配置
 loadkeys keys.conf
-联网
+```
+### 联网
+```
 ip link//查看设备状态
 ip link set wlan0//wlan0为系统列出来的设备名
 iwlist wlan0 scan//扫描wifi
@@ -21,10 +26,14 @@ wifi-menu//可能支持一些安全协议，例如：可能上不了校园网，
 wap_passphrase wifi名 wifi密码 > internet.conf//生成internet.conf配置文件
 wpa_supplicant -c internet.conf -i wlan0 &//此时ping不通
 dhcpcd &//通过动态分配ip地址后才能ping通
-同步系统时间
+```
+### 同步系统时间
+```
 timedatectl set-ntp true//更新系统时间
 timedatectl status // 确保设置成功
-查看磁盘设备
+```
+### 磁盘设备及分区
+```
 fdisk -l//查看设备
 fdisk /dev/sda1//sda1为磁盘设备名
 //根据帮助文档
@@ -46,19 +55,25 @@ sda2用于主文件系统
 sda3用于swap分区
 
 //按w才会写入硬盘
-格式化磁盘格式
+```
+### 格式化磁盘格式
+```
 mkfs.fat -F32 /dev/sda1 // UEFI引导分区，用于boot， mkfs= make filesystem, fat为文件格式
 mkfs.ext4 /dev/sda2// 引导主分区，这个格式有多种，比如ext4，xfs等
 mkswap /dev/sda3 // 交换分区
 swapon /dev/sda3 // 开启交换分区
-pacman配置（根据个人配置，也可以不配置）
+```
+### pacman配置（根据个人配置，也可以不配置）
+```
 vim /etc/pacman.conf // 没有编译器可以pycman -S vim下一个
 里面的color选项推荐打开，以后系统提示就会变成彩色字体而不是黑白
 选项Include=/etc/pacman.d/mirrorlist //这里保存pacman的源
 按gf进入/etc/pacman.d/mirrorlist  //mirrorlist是从上往下找的，因此第一个可以填离你最近的源，提升更新网速
 你可以加入清华大学源Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch
 或者可以ping一下源地址，看哪个快
-挂载分区
+```
+### 挂载分区
+```
 //我们目前是位于u盘下，或者是虚拟机的虚拟u盘下，如果要安装，必须挂载，因为你u盘等下是要拔掉的!
 monut /dev/sda2 /mnt // 首先挂载主分区
 ls /mnt //查看挂载情况，如果为lost+found表示成功
@@ -71,9 +86,11 @@ mount /dev/nvme0n1p1 /mnt/boot // 挂载引导分区
 pacstrap /mnt base linux linux-firmware
 生成fstab文件
 genfstab -U /mnt >> /mnt/etc/fstab
+```
 到此archlinux基本安装完毕
 
-进入到安装的系统
+### 进入到安装的系统
+```
 arch-chroot /mnt  //后面就相当于在你的新系统里执行命令了
 时区设置
 ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime //建立一个软连接 localtime需要手动敲
@@ -107,9 +124,9 @@ passwd
 // grub作为系统引导
 // intel-ucode是更新驱动用的
 pacman -S grub efibootmgr intel-ucode os-prober // AMD请装amd-ucode
-
-UEFI系统安装配置grub
-
+```
+### UEFI系统安装配置grub
+```
 mkdir /boot/grub
 grub-mkconfig > /boot/grub/grub.cfg  //需手敲
 uname -m //查看当前系统架构，x86_64
@@ -123,17 +140,16 @@ exit
 reboot
 拔掉usb，或者移除虚拟usb
 dhcpcd & // 插网线没有网络，动态分配一个IP地址
-用户权限
+```
+### 用户权限
+```
 useradd -m -G wheel rain  // -m表示添加一个家目录，-G wheel指定用户组为wheel，wheel为系统自带用户组
 visudo //把%wheel ALL=(ALL) (ALL)开放，wheel用户组就可以执行任何指令
 sudo pacman -Syyu //用rain登录测试下sudo
-界面基本模式
-sudo pacman -S xorg xorg-server
-sudo pacman -S xorg-xinit 在/etc/X11/xinit/xinitrc加入exec dwm，输入startx就可以进入dwm了
+```
 
-//yay包管理 tlp电池管理 sudo pacman -S yay tlp
-
-图形界面服务器
+### 图形界面服务器
+```
 pacman -S xorg xorg-server
 
 pacman -S xorg-xint
@@ -142,8 +158,10 @@ sudo pacman -S xorg-xinit
 
 //yay包管理 tlp电池管理
 sudo pacman -S yay tlp
-
-picom窗口渲染器
+```
+### picom窗口渲染器
+```
+```
 
 ### pacman基本用法
 ```
