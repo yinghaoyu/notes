@@ -115,7 +115,7 @@ vim /mnt/etc/hosts  //需手动敲
 加入
 127.0.0.1 localhost
 ::1 localhost
-127.0.0.1 yyh.localdomain yyh
+127.0.1.1 yyh.localdomain yyh
 更改root密码
 arch-chroot /mnt
 passwd
