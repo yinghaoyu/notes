@@ -103,7 +103,7 @@ hwclock --systohc  //使用hwclock生成/etc/adjtime文件
 
 输入exit+回车
 
-vim /mnt/etc/locale.gen  //将en_US.UTF-8 UTF-8取消注释
+vim /mnt/etc/locale.gen  //将en_US.UTF-8 UTF-8,zh_CN.GBK,zh_CN.GB2312,zh_CN.UFT-8取消注释
 arch-chroot /mnt  //再进入系统
 locale-gen  //根据刚刚修改的文件生成locale
 输入exit+回车 //再退出系统
