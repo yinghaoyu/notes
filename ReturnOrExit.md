@@ -1,5 +1,3 @@
-对于return和exit，想必大家都不会陌生。
-
 很多人以为在main函数中return和调用exit差不多，反正都是程序结束了。但其实并不是这样的。
 
 ## fork与vfork
