@@ -118,9 +118,9 @@ public:
 ```
 上面这段代码最大的漏洞在于，shared_ptr 是一个模板，它并不知道 A 类是否继承 自 enable_shared_from_this，
 
-所以 a->SetSharedPtr(this) 这一句的调用不完全正确 。
+所以 a->setSharedPtr(this) 这一句的调用不完全正确 。
 
-boost 中解决这个问题使用了一个非常巧妙的方法：**重载**，通过重载我们可以让编译器自 动选择是否调用 SetSharedPtr。
+boost 中解决这个问题使用了一个非常巧妙的方法：**重载**，通过重载我们可以让编译器自 动选择是否调用 setSharedPtr。
 ```cpp
 class shared_ptr<A>
 {
