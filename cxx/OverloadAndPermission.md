@@ -11,7 +11,7 @@ int main()
 {
   char str[] = "hello world";
   A a;
-  a.fun(str);  // 编译出错
+  a.fun(str);  // 编译出错，提示不能访问私有成员
   return 0;
 }
 ```
