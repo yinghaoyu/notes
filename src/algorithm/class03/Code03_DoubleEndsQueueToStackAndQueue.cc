@@ -91,7 +91,7 @@ public:
 		return cur->value;
 	}
 
-	public boolean isEmpty()
+	bool isEmpty()
 	{
 		return head == null;
 	}
@@ -106,18 +106,18 @@ public:
 	{
 		queue = new DoubleEndsQueue<T>();
 	}
-
-	public void push(T value)
+	
+	void push(T value)
 	{
 		queue.addFromHead(value);
 	}
 
-	public T pop()
+	T pop()
 	{
 		return queue.popFromHead();
 	}
 
-	public boolean isEmpty()
+	bool isEmpty()
 	{
 		return queue->isEmpty();
 	}
@@ -144,7 +144,7 @@ public:
 		return queue.popFromBottom();
 	}
 
-	boolean isEmpty()
+	bool isEmpty()
 	{
 		return queue.isEmpty();
 	}
