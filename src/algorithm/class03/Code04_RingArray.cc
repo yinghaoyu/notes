@@ -22,7 +22,7 @@ public:
 		pushi = nextIndex(pushi);
 	}
 
-	public int pop()
+	int pop()
 	{
 		if (size == 0)
 		{
