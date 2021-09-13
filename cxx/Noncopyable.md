@@ -62,14 +62,14 @@ Base Copy Ctor  // 自动调用了基类的拷贝构造函数
 ```cpp
 class Base {
  public:
-  Base() { cout << "Base Default CtorCtorCtorCtor" << endl; }
-  Base(const Base &) { cout << "Base Copy CtorCtorCtor" << endl; }
+  Base() { cout << "Base Default Ctor" << endl; }
+  Base(const Base &) { cout << "Base Copy Ctor" << endl; }
 };
 
 class Drived : public Base
 {
  public:
-  Drived() { cout << "Drived Default CtorCtor" << endl; }
+  Drived() { cout << "Drived Default Ctor" << endl; }
   Drived(const Drived& d)
   {
    cout << "Drived Copy Ctor" << endl;
