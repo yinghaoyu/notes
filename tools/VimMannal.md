@@ -139,3 +139,29 @@ vnoremap Y "+y可视模式下将Y绑定
 
 :help 打开帮助
 ：checkhealth查看安装情况
+
+## tabe
+命令模式下：
+:tabc关闭当前的tabe
+:tabn切换下一个tabe
+:tabp切换前一个tabe
+:tabs查看共有几个tabe
+1gt快速切换到第1个tabe
+2gt快速切换到第2个tabe
+  
+## mark
+命令模式下：  
+ma文件内设置标记，名称为a
+mA跨文件设置标记，名称为A
+mb文件内设置标记，名称为b
+`a定位到标记a处（撇号+a）
+'a定位到标记a处的行首（单引号+a）
+:marks 显示所有的标记
+:delmarks 删除指定的标记
+:delmarks! 删除所有标记（大些字母的标记除外）
+## reg
+双引号）加上一个 a-z 的字母来给定义一个有名字的寄存器
+""表示无名寄存器
+"ayy 表示的是复制当前行内容到 a 寄存器当中
+"ap 表示的是从 a 寄存器当中取出内容
+:reg a列出a寄存器的内容
