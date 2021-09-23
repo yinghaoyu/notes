@@ -2,6 +2,23 @@
 
 MSL:Maximum Segment Lifetime
 
+TCP支持通过SO_LINGER选项来设置连接延迟关闭。
+SO_LINGER选项可以改变close()的默认行为，选项要求传入内核的参数的结构体如下：
+```cpp
+struct linger{
+    int l_onoff;        //0=off, non-zero = on
+    int l_linger;       //延迟关闭的时间，单位second
+};
+```
+l_onoff开启时，l_linger为非0，调用close()关闭连接时，
+
+fd阻塞情况下，如果socket的发送缓冲区残留为发送的数据，那么进程将会被投入睡眠，直到所有数据被发送完并收到确定或则l_linger时间超时。如果延迟时间超时发送缓冲区的数据还没有发送完毕，那么close()会返回EWOULDBLOCK错误，并丢弃发送缓冲区的全部数据。
+fd非阻塞情况下，close()会立即返回，接下来TCP协议层就是和fd阻塞情况一样的操作。
+l_onoff开启时，l_linger为0，调用close()关闭连接时，就会触发前面异常释放的流程，即发送复位报文进行连接的关闭。
+
+下图是close()的行为在有无SO_LINGER选项下的行为对比，截自《》
+
+
 1. TCP总共有几种状态？
 
 > 11种。分别为CLOSED, SYN_SEND, SYN_RECVD, ESTABLISH, LISTEN, FIN_WAIT-1, CLOSE_WAIT, FIN_WAIT_2, LAST_ACK, TIME_WAIT, CLOSING。其中CLOSING状态是A、B两端同时发起close时，产生的中间状态。
@@ -38,3 +55,6 @@ MSL:Maximum Segment Lifetime
 8. 为什么要采用三次握手，而不是两次握手？
 
 > 第一，三次握手每次都是接收到数据包的一方可以得知对方的情况，但发送方其实没有任何头绪。我虽然有发包的动作，但是我怎么知道我有没有发出去，而对方有没有接收到呢？所以经历了上面的三次握手过程，客户端和服务端都确认了自己的接收、发送能力是正常的。之后就可以正常通信了。第二，为了**防止已失效的连接请求报文段突然又传送到服务器，产生错误**。已失效的连接请求报文段的产生原因：当客户A发送连接请求，但因连接请求报文丢失而未收到确认。于是A会再次重传一次连接请求，此时服务器端B收到再次重传的连接请求，建立了连接，然后进行数据传输，数据传输完了后，就释放了此连接。假设A第一次发送的连接请求并没有丢失，而是在网络结点中滞留了太长时间，以致在AB通信完后，才到达B。此时这个连接请求其实已经是被A认为丢失的了。如果不进行第三次握手，那么服务器B可能在收到这个已失效的连接请求后，进行确认，然后单方面进入ESTABLISHED状态，而A此时并不会对B的确认进行理睬，这样就白白的浪费了服务器的资源。
+
+## 参考文献
+1. W.Richard Stevens/Bill Fenner/Andrew M. Rudoff [UNIX网络编程劵1:套接字网络API](https://book.douban.com/subject/4859464/)
