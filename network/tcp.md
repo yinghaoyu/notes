@@ -21,7 +21,8 @@ fd非阻塞情况下，close()会立即返回，接下来TCP协议层就是和fd
 
 l_onoff开启时，l_linger为0，调用close()关闭连接时，就会触发前面异常释放的流程，即发送复位报文进行连接的关闭。
 
-下图是close()的行为在有无SO_LINGER选项下的行为对比，
+下图是close()的行为在有无SO_LINGER选项下的行为对比
+
 ![tcp_close_linger](/images/tcp_close_linger.png)
 
 1. TCP总共有几种状态？
