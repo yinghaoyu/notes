@@ -2,6 +2,32 @@
 
 MSL:Maximum Segment Lifetime
 
+TCP的复位报文是一个很常见的数据，引用TCP/IP详解的话：无论何时，一个报文段发往基准的连接(referenced connection)出现错误，TCP都会发出一个复位报文段。
+主要有三种情况：
+
+- 前面提到的半打开状态：一个连接的另一端已经关闭，此时发送数据到对端，就会触发RST回包；
+- 到不存在的端口的连接请求：请求连接一个并没有监听的端口，TCP则会返回RST(UDP将会产生一个ICMP端口不可达的信息)。
+- 异常终止一个连接：在关闭连接的时候不是通过FIN报文进行正常关闭，而是通过直接发送RST进行连接关闭。两者的区别：
+    - 通过FIN包进行关闭，又称：有序释放(orderly release)，因为close()/shutdown()都会将缓冲区中的数据全部发送出去之后，才会发送FIN。
+    - 通过RST复位包进行关闭，又称：异常释放(abortive release)。异常释放的特点：
+        - 丢弃掉发送缓冲区中的全部数据，立刻发送RST报文；
+        - RST接收方会区分另一端执行的是正常关闭，还是异常关闭。
+直接通过发送RST报文进行连接的异常关闭的代码如下：
+```cpp
+struct linger so_linger;
+so_linger.l_onoff = true;
+so_linger.l_linger = 0;
+
+ret = setsockopt(events[i].data.fd, SOL_SOCKET, SO_LINGER, &so_linger, sizeof(so_linger));
+if(ret < 0)
+{
+    printf("%s():[ERROR]: setsockopt error, errno:%d, info:%s\n", \
+        __FUNCTION__, errno, strerror(errno));
+}
+
+close(events[i].data.fd);
+```
+
 TCP支持通过SO_LINGER选项来设置连接延迟关闭。
 SO_LINGER选项可以改变close()的默认行为，选项要求传入内核的参数的结构体如下：
 ```cpp
