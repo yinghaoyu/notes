@@ -5,19 +5,24 @@ MSL:Maximum Segment Lifetime
 TCP支持通过SO_LINGER选项来设置连接延迟关闭。
 SO_LINGER选项可以改变close()的默认行为，选项要求传入内核的参数的结构体如下：
 ```cpp
-struct linger{
+struct linger
+{
     int l_onoff;        //0=off, non-zero = on
     int l_linger;       //延迟关闭的时间，单位second
 };
 ```
 l_onoff开启时，l_linger为非0，调用close()关闭连接时，
 
-fd阻塞情况下，如果socket的发送缓冲区残留为发送的数据，那么进程将会被投入睡眠，直到所有数据被发送完并收到确定或则l_linger时间超时。如果延迟时间超时发送缓冲区的数据还没有发送完毕，那么close()会返回EWOULDBLOCK错误，并丢弃发送缓冲区的全部数据。
+fd阻塞情况下，如果socket的发送缓冲区残留为发送的数据，那么进程将会被投入睡眠，直到所有数据被发送完并收到确定或则l_linger时间超时。如果延迟时间超时发送缓冲区的数据还没有发送完毕，那么close()会
+
+返回EWOULDBLOCK错误，并丢弃发送缓冲区的全部数据。
+
 fd非阻塞情况下，close()会立即返回，接下来TCP协议层就是和fd阻塞情况一样的操作。
+
 l_onoff开启时，l_linger为0，调用close()关闭连接时，就会触发前面异常释放的流程，即发送复位报文进行连接的关闭。
 
-下图是close()的行为在有无SO_LINGER选项下的行为对比，截自《》
-
+下图是close()的行为在有无SO_LINGER选项下的行为对比，
+![tcp_close_linger](/images/tcp_close_linger.png)
 
 1. TCP总共有几种状态？
 
