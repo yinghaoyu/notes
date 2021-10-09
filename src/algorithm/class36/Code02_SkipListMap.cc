@@ -113,7 +113,7 @@ public:
       // find == null   8   7   9
       size++;
       int newNodeLevel = 0;
-      while (random()&&0xFFFF < PROBABILITY*0xFFFF) 
+      while (random()&&0xFFFF < PROBABILITY*0xFFFF)  //from redis
       {
 	newNodeLevel++;
       }
