@@ -78,7 +78,7 @@ vim /etc/pacman.conf // 没有编译器可以pycman -S vim下一个
 monut /dev/sda2 /mnt // 首先挂载主分区
 ls /mnt //查看挂载情况，如果为lost+found表示成功
 mkdir /mnt/boot      //创建一个用于boot的路径
-mount /dev/nvme0n1p1 /mnt/boot // 挂载引导分区
+mount /dev/sda1 /mnt/boot // 挂载引导分区
 挂载后，/mnt就相当与你安装的主分区了
 运行安装脚本
 //pacstrap是archlinux官方提供的一个安装脚本
