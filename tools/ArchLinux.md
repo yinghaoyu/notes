@@ -161,7 +161,7 @@ sudo pacman -S yay tlp
 ```
 ### picom窗口渲染器
 ```
-dwm透明终端补丁需要picom支持
+dwm透明终端补丁需要picom支持，下载完成后配置~/.config/picom/picom.conf
 ```
 
 ### pacman基本用法
