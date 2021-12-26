@@ -225,8 +225,17 @@ pacman -Syyu后，root用户执行startx正常，而非root用户执行startx出
 　　然后再执行xdpyinfo命令，如果能出现信息说明你已经成功了
 ```
 ### 设置字体
-
-中文字体noto-conts-cjk
+微软雅黑 Noto SourceCodePro
 ### 声音驱动
 声音驱动 alsa-utils sof-firmware alsa-ucm-conf
 alsamixer调
+### 调整虚拟机分辨率
+```
+xrandr //查看支持的类型
+xrandr --output Virtual-1 --mode 1920×1080 //如果存在直接修改输出模式为1920×1080
+cvt 1920 1080 75 //，如果没有对应的分辨率，就创建一个1920×1080,75hz的模式
+xrandr --newmode "1920×1080_75.00".... //上面cvt命令输出的，Modeline后面的参数全都要
+xrandr --addmode Virtual-1 "1920×1080_75.00"
+```
+
+
