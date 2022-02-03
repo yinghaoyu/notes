@@ -21,9 +21,13 @@ create table mytb(
 #### 3.什么是最左匹配？
 答：最左匹配原则就是指在联合索引中，如果你的 SQL 语句中用到了联合索引中的最左边的索引，那么这条 SQL 语句就可以利用这个联合索引去进行匹配。
 
-`select name, age from mytb where name = ''`如果创建了index(name,age)的索引，则能使用name;如果创建了index(age,name)就不能用
+`select name, age from mytb where name = '';`如果创建了index(name,age)的索引，则能使用name;如果创建了index(age,name)就不能用
 
 `select name, age from mytb where age = '';`如果创建了index(name,age)的索引就不能用;如果创建了index(age,name)，则能用age
+
+`select name, age from mytb where age = '' and name = '';`如果创建了index(age,name)索引，能用
+
+`select name, age from mytb where age = '' and name = '';`如果创建了index(name,age)索引，也能用，因为优化器会将条件顺序优化为先查name后查age
 
 #### 4.以下查询条件创建索引，方案1和方案2哪个好？
 ```
