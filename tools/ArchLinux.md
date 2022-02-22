@@ -187,7 +187,7 @@ pacman -Qeq//查询你手动装了什么软件
 pacman -Qs + name//查询你手动装了什么软件
 
 pacman -Qdt（dependences）//查询孤儿软件，不再需要的软件
-pacman -R $ (pacman -Qdtq) //删除所有孤儿软件
+pacman -R $(pacman -Qdtq) //删除所有孤儿软件
 
 /etc/pacman.conf//pacman的配置文件
 
