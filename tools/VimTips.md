@@ -47,6 +47,7 @@ c(change)+i(in)+w(word)表示在某个词中删除并开始编辑
 ```txt
 this is vim : the best ...
 ```
+
 f(find) v可以把光标移到vim开头find查找当前行，再按0可以回到行首
 
 d+f+：删除到冒号
@@ -66,7 +67,9 @@ y+f+: 复制到冒号
 1gt快速切换到第1个tabe
 
 2gt快速切换到第2个tabe
-### 四、标记mark
+
+## 四、标记mark
+
 ma文件内设置标记，名称为a
 
 mA跨文件设置标记，名称为A
