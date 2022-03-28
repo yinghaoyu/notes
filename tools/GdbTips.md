@@ -7,4 +7,4 @@
 - info register 快速查看寄存器
 - info inferiors 显示所有进程
 - !ls 执行终端的ls命令
-- !pmap processid 打印进程地址空间有什么
+- !pmap processid 打印进程地址空间有什么(等价于cat /proc/[pid]/maps)
