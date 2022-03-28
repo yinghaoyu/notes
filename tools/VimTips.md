@@ -1,4 +1,6 @@
-## 基础操作
+# 每天学一个vim技巧
+
+## 一、基础操作
 i=insert
 shift + i 从行首进入insert模式
 
@@ -15,7 +17,7 @@ s 删除光标字符并进入inser模式，slash
 
 ctrl + o 和ctrl+i切换历史光标，**可以跨文件**
 
-### operation + motion
+## 二、Operation + motion
 
 d+方向右，往右边删除字符，delete
 
@@ -28,7 +30,8 @@ d + 3 + 方向左，往左边删除3字符
 相同操作c(change)会进入写入模式
 
 y复制操作，yy复制当前行（0行头$行尾）
-```
+
+```txt
 <hello> <text me> you
 ```
 w(word)操作定位到每个词
@@ -40,7 +43,8 @@ c(change)+i(in)+w(word)表示在某个词中删除并开始编辑
 光标在<text me>内。输入c + i + <会把text me全部删除并写入
 
 同理y+i+w 复制hello, y+i+<复制text me
-```
+
+```txt
 this is vim : the best ...
 ```
 f(find) v可以把光标移到vim开头find查找当前行，再按0可以回到行首
@@ -49,7 +53,8 @@ d+f+：删除到冒号
 
 y+f+: 复制到冒号
 
-### 标签tabe
+## 三、标签tabe
+
 :tabc关闭当前的tabe
 
 :tabn切换下一个tabe
@@ -61,7 +66,7 @@ y+f+: 复制到冒号
 1gt快速切换到第1个tabe
 
 2gt快速切换到第2个tabe
-### 标记mark
+### 四、标记mark
 ma文件内设置标记，名称为a
 
 mA跨文件设置标记，名称为A
@@ -78,7 +83,8 @@ mb文件内设置标记，名称为b
 
 :delmarks! 删除所有标记（大些字母的标记除外）
 
-### 寄存器reg
+## 五、寄存器reg
+
 双引号）加上一个 a-z 的字母来给定义一个有名字的寄存器
 
 ""表示无名寄存器
@@ -89,7 +95,7 @@ mb文件内设置标记，名称为b
   
 :reg a列出a寄存器的内容
 
-## 提高操作
+## 六、提高操作
 
 noremap E 5j 按一下E=5个j
 
@@ -140,7 +146,7 @@ ctrl+w+t+ctrl+w+K
 
 :color default 设置背景色
 
-## Version模式
+## 七、Version模式
 
 v进入version模式，可以v后，上下左右选中+y复制
 
@@ -192,3 +198,50 @@ vnoremap Y "+y可视模式下将Y绑定
 
 :help 打开帮助
 ：checkhealth查看安装情况
+  
+
+## 八、段首位添加字符
+
+比如有一个txt文档：
+
+```txt
+This is a test
+This is a test, oh my god !!!
+This is a test, oh no !
+This is a test, wow !
+This is a test, what ?
+This is a test, really ?
+This is a test, seriously ?
+
+no, you are right
+yes, you are right
+no, you are wrong
+```
+
+假如我们想要在段首加上`<begin>`，在段尾加`<end>`，然后在每行尾部加上`\\`，变成下面这样。
+
+```txt
+<begin>
+This is a test \\
+This is a test, oh my god !!! \\
+This is a test, oh no ! \\
+This is a test, wow ! \\
+This is a test, what ? \\
+This is a test, really ? \\
+This is a test, seriously ? \\
+<end>
+
+<begin>
+no, you are right \\
+yes, you are right \\
+no, you are wrong \\
+<end>
+```
+
+怎么办呢？我们可以先录制一个宏：
+
+`esc q a { O <begin> esc } o <end> esc k V { :norm A \\ q`
+
+`{`表示到段首，`}`表示到段尾， `V {`其中`V`表示选中整个句子， `V {`表示选中从当前句子直到段首,`:norm A \\`表示在所有选中行尾部添加`\\`
+
+然后`@a`执行，这一段就会被格式化了。
