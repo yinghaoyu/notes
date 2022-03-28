@@ -5,3 +5,4 @@
 - si 执行一条汇编指令，后续按回车键会重复
 - info register 快速查看寄存器
 - backtrace 打印调用栈
+- info inferiors 显示所有进程
