@@ -10,6 +10,6 @@
 - !pmap processid 打印进程地址空间有什么(等价于cat /proc/[pid]/maps)
 - p $rax 打印rax寄存器的内容
 - watch $rax 监视rax的内容
-- target record-full 开始记录状态
+- target record-full 开始记录状态（有些指令不支持）
 - record stop 结束记录
 - rsi gdb的记录了程序状态的快照，回退执行一条指令
