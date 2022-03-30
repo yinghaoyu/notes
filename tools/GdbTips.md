@@ -15,6 +15,8 @@
 - 如何执行终端的ls命令？`!ls` 
 - 如何打印rax寄存器的内容？`p $rax` 
 - 如何监视rax的内容？`watch $rax` 
+  > watch 变化时，停住程序。 rwatch 被读时，停住程序。 awatch 被读或者被写，停住程序。
+- 如何列出所有监视？`info watchpoints`
 - 哪些指令不支持time travel debuging？`syscall等`
 - 如何开始记录程序状态？`target record-full` 
 - 如何结束记录程序状态？`record stop` 
@@ -32,7 +34,13 @@
 - 如何立即执行完当前的函数，但是并不是执行完整个应用程序？`finish`
 - 如何查看指定文件的代码？`list file:N`
 - 如果循环次数很多，如何执行完当前的循环？`until`
-
+- 如何在程序启动后调试？`gdb [pname] [pid]`
+- 如何调试core文件？`gdb [pname] [core file]`
+- 如何设置启动参数？`set args 10 20 30`
+- 如何设置程序运行的路径？`path [dir]`
+- 如何查看程序运行的路径？`show paths`
+- 如何设置程序的环境变量？`set env USER=hchen`
+- 如何查看程序的环境变量？`show environment [var]`
 ## 进程调试
 
 - 如何显示所有进程？`info inferiors`
