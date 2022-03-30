@@ -6,10 +6,13 @@
 - 如何显示当前的调试源文件？`info source`
 - 如何从第一条指令开始运行？`starti`
 - 如何从main第一条指令开始运行？`start`
-- 如何快速查看汇编？`layout asm` 
-- 如何快速查看源码？`layout src` 
+- 如何查看汇编？`disassemble`
+- 如何分窗口查看汇编？`layout asm` 
+- 如何分窗口查看源码？`layout src` 
 - 如何向前执行一条指令？`si(single step)`
 - 如何重复执行一条指令？`回车`
+- 如何跳转到某一行执行？`jump [linenumber]`
+- 如何强制返回当前函数？`return`
 - 如何查看调用堆栈？`bt(backtrace)` 
 - 如何查看寄存器信息？`info register` 
 - 如何执行终端的ls命令？`!ls` 
@@ -29,8 +32,21 @@
 - 如何远端调试？`target remote localhost:1234`
 - 如何终止正在调试的程序？`kill`
 - 如何打印变量的值？`print /x var 其中/x表示以16进制打印var变量`
+  > 可以支持的变量显示格式有:
+  > 
+  > x 按十六进制格式显示变量。
+  > d 按十进制格式显示变量。
+  > u 按十六进制格式显示无符号整型。
+  > o 按八进制格式显示变量。
+  > t 按二进制格式显示变量。
+  > a 按十六进制格式显示变量。
+  > c 按字符格式显示变量。
+  > f 按浮点数格式显示变量。
+- 如何显示数组的指定元素个数？`print *arr@10`
 - 如何打印变量的地址？`print &var`
 - 如何打印地址的数据值？`print *address`
+- 如何显示变量的类型？`whatis var`
+  > ptype var 以更详细的方式显示变量var的类型。
 - 如何立即执行完当前的函数，但是并不是执行完整个应用程序？`finish`
 - 如何查看指定文件的代码？`list file:N`
 - 如果循环次数很多，如何执行完当前的循环？`until`
@@ -47,8 +63,18 @@
 - 如何查看进程地址空间？`!pmap processid (等价于cat /proc/[pid]/maps)`
 - 如何查看默认调试的是父进程还是子进程？`show follow-fork-mode`
 - 如何查看默认调试的是单进程还是多进程？`show detach-on-fork`
-  > set follow-fork-mode child 当 mode 为 parent 时，程序在调用 fork 后**调试父进程，子进程不会受到影响**。当 mode 为 child 时，程序在调用 fork 后**调试子进程，父进程不会受到影响**
+  - set follow-fork-mode child 当 mode 为 parent 时，程序在调用 fork 后**调试父进程，子进程不会受到影响**。当 mode 为 child 时，程序在调用 fork 后**调试子进程，父进程不会受到影响**
 
-  > set detach-on-fork off 当 mode 为 on 时，表示程序**只调试一个进程**（可以是父进程、子进程）。当 mode 为 off 时，父子进程都在gdb的控制之下，其中**一个进程正常的调试，另一个会被设置为暂停状态**
+  - set detach-on-fork off 当 mode 为 on 时，表示程序**只调试一个进程**（可以是父进程、子进程）。当 mode 为 off 时，父子进程都在gdb的控制之下，其中**一个进程正常的调试，另一个会被设置为暂停状态**
 - 如何切换调试的进程？`inferior [num]`
-- 如何捕获fork事件？`catch fork`
+- 如何捕获事件？`catch <event>`
+  > tcatch <event> 只设置一次捕捉点，当程序停住以后，该点被自动删除。
+  >
+  > 一般能捕获的事件有：
+  > - throw 一个C++抛出的异常。（throw为关键字）
+  > - catch 一个C++捕捉到的异常。（catch为关键字）
+  > - exec 调用系统调用exec时。（exec为关键字，目前此功能只在HP-UX下有用）
+  > - fork 调用系统调用fork时。（fork为关键字，目前此功能只在HP-UX下有用）
+  > - vfork 调用系统调用vfork时。（vfork为关键字，目前此功能只在HP-UX下有用）
+  > - load 或 load <libname> 载入共享库（动态链接库）时。（load为关键字，目前此功能只在HP-UX下有用）
+  > - unload 或 unload <libname> 卸载共享库（动态链接库）时。（unload为关键字，目前此功能只在HP-UX下有用）
