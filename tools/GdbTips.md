@@ -19,3 +19,4 @@
 - checkpoint 为当前程序状态设置一个快照
 - info checkpoints 查看所有快照
 - restart [checkpoint id] 恢复保存[checkpoint id]时的状态
+- target remote localhost:1234 远端调试
