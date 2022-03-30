@@ -14,3 +14,8 @@
 - target record-full 开始记录状态
 - record stop 结束记录
 - rsi gdb的记录了程序状态的快照，回退执行一条指令
+- save breakpoints gdb.cfg 保存断点到文件
+- source gdb.cfg 就可以直接加载断点了
+- checkpoint 为当前程序状态设置一个快照
+- info checkpoints 查看所有快照
+- restart [checkpoint id] 恢复保存[checkpoint id]时的状态
