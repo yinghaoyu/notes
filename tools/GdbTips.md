@@ -29,4 +29,5 @@
 - show detach-on-fork
 - set follow-fork-mode child 当 mode 为 parent 时，程序在调用 fork 后**调试父进程，子进程不会受到影响**。当 mode 为 child 时，程序在调用 fork 后**调试子进程，父进程不会受到影响**
 - set detach-on-fork off 当 mode 为 on 时，表示程序**只调试一个进程**（可以是父进程、子进程）。当 mode 为 off 时，父子进程都在gdb的控制之下，其中**一个进程正常的调试，另一个会被设置为暂停状态**
+- inferior [num] 切换到[num]对应的进程
 - catch fork 设置捕获点中断在fork事件上
