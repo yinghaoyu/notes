@@ -1,13 +1,13 @@
 # 每天学一点GDB调试技巧
 
+## 基本命令
+
 - starti 从第一条指令开始运行
 - layout asm 快速查看汇编
 - si(single step) 向前执行一条指令，后续按回车键会重复
 - backtrace 打印调用栈
 - info register 快速查看寄存器
-- info inferiors 显示所有进程
 - !ls 执行终端的ls命令
-- !pmap processid 打印进程地址空间有什么(等价于cat /proc/[pid]/maps)
 - p $rax 打印rax寄存器的内容
 - watch $rax 监视rax的内容
 - gdb的time travel debuging（有些指令不支持）
@@ -20,3 +20,13 @@
 - info checkpoints 查看所有快照
 - restart [checkpoint id] 恢复保存[checkpoint id]时的状态
 - target remote localhost:1234 远端调试
+
+## 进程调试
+
+- info inferiors 显示所有进程
+- !pmap processid 打印进程地址空间有什么(等价于cat /proc/[pid]/maps)
+- show follow-fork-mode 显示默认的 follow-fork-mode 配置
+- show detach-on-fork 显示默认的 detach-on-fork 配置
+- set follow-fork-mode child 当 mode 为 parent 时，程序在调用 fork 后调试父进程，子进程不会受到影响。当 mode 为 child 时，程序在调用 fork 后调试子进程，父进程不会受到影响
+- set detach-on-fork off 当 mode 为 on 时，表示程序只调试一个进程（可以是父进程、子进程）。当 mode 为 off 时，父子进程都在gdb的控制之下，其中一个进程正常的调试，另一个会被设置为暂停状态
+- catch fork 设置捕获点中断在fork事件上
