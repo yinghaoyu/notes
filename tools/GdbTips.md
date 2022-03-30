@@ -7,6 +7,7 @@
 - 如何从第一条指令开始运行？`starti`
 - 如何从main第一条指令开始运行？`start`
 - 如何快速查看汇编？`layout asm` 
+- 如何快速查看源码？`layout src` 
 - 如何向前执行一条指令？`si(single step)`
 - 如何重复执行一条指令？`回车`
 - 如何查看调用堆栈？`bt(backtrace)` 
