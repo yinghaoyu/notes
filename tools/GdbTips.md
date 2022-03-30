@@ -2,6 +2,8 @@
 
 ## 基本命令
 
+- info frame 查看当前函数的程序语言
+- info source 显示当前的调试源文件
 - starti 从第一条指令开始运行
 - layout asm 快速查看汇编
 - si(single step) 向前执行一条指令，后续按回车键会重复
@@ -20,6 +22,7 @@
 - info checkpoints 查看所有快照
 - restart [checkpoint id] 恢复保存[checkpoint id]时的状态
 - target remote localhost:1234 远端调试
+- kill 终止正在调试的程序
 
 ## 进程调试
 
