@@ -78,3 +78,7 @@
   > - vfork 调用系统调用vfork时。（vfork为关键字，目前此功能只在HP-UX下有用）
   > - load 或 load <libname> 载入共享库（动态链接库）时。（load为关键字，目前此功能只在HP-UX下有用）
   > - unload 或 unload <libname> 卸载共享库（动态链接库）时。（unload为关键字，目前此功能只在HP-UX下有用）
+
+## 线程调试
+  
+- set scheduler-locking
