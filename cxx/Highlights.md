@@ -675,3 +675,19 @@ decltype(Func(1)) var13=true;//const bool
 
 decltype(i++) var14 = i;//int i++返回右值
 ```
+
+55、
+```c
+struct task
+{
+  ...
+  struct list_head wait_queue;
+  ...
+}
+#define list_entry(ptr, type, member) \
+	((type *) \
+	((char *)(ptr) - (uintptr_t)(&((type *)0)->member)) \
+	)
+// ptr to struct list_head
+struct task *t = list_entry(ptr, struct task, wait_queue) // 已知wait_queue的地址，取出task的地址
+```
