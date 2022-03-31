@@ -125,6 +125,7 @@
 - 如何只允许一个线程运行？`set scheduler-locking on`
   > set scheduler-locking 命令除了支持off和on模式外（默认是off），还有一个step模式。含义是：当用"step"命令调试线程时，其它线程不会执行，但是用其它命令（比如"next"）调试线程时，其它线程也许会执行.
 - 如何查看所有线程？`info threads`
+- 如何切换线程？`thread [tid]`
 - 如何使监视只对某线程生效？`watch [val] thread [threadnum]`
   
 ## 避开ptrace反追踪
