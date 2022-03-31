@@ -693,7 +693,7 @@ struct task *t = list_entry(ptr, struct task, wait_queue) // 已知wait_queue的
 ```
 
 56、互斥锁使用RAII的优势
-```c
+```cpp
 void fun1()
 {
   lock(a);
