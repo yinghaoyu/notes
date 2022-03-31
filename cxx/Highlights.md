@@ -691,3 +691,33 @@ struct task
 // ptr to struct list_head
 struct task *t = list_entry(ptr, struct task, wait_queue) // 已知wait_queue的地址，取出task的地址
 ```
+
+56、互斥锁使用RAII的优势
+```c
+void fun1()
+{
+  lock(a);
+  return; //在c语言中，如果直接return，那么a不会解锁
+  unlock(a);
+}
+class Guard
+{
+  Guard()
+  {
+    lock(a);
+  }
+  ~Guard()
+  {
+    unlock(a);
+  }
+private:
+  mutex a;
+}
+
+void fun2()
+{
+  Guard();
+  return;
+}
+
+```
