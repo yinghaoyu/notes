@@ -7,18 +7,24 @@
 - 如何从第一条指令开始运行？`starti`
 - 如何从main第一条指令开始运行？`start`
 - 如何查看汇编？`disassemble`
-  > disassemble [function] 查看函数汇编
+  > disassemble [function] 查看函数汇编，disassemble /r同时显示原始机器码
+- 如何修改汇编格式？`set disassembly-flavor intel`
+  > set disassembly-flavor只能用在Intel x86处理器上，并且取值只有intel和att。
+- 如何查看汇编和源代码的映射？`disassemble /m [function]`
 - 如何分窗口查看汇编？`layout asm` 
 - 如何分窗口查看源码？`layout src` 
 - 如何关闭分窗口？`Ctrl X A` 
 - 如何向前执行一条指令？`si(single step)`
 - 如何重复执行一条指令？`回车`
 - 如何跳转到某一行执行？`jump [linenumber]`
+- 如何显示即将要执行的一条指令？`display /i $pc`
+  > display /3i $pc 显示即将要执行的3条指令
 - 如何查看所有函数？`info functions`
   > 可以使用正则表达式，info functions thre* 返回thre开头的所有函数
 - 如何强制返回当前函数？`return`
 - 如何查看调用堆栈？`bt(backtrace)` 
-- 如何查看寄存器信息？`info register` 
+- 如何查看寄存器信息？`info registers`
+  > info all-registers 输出所有寄存器包括浮点寄存器和向量寄存器。
 - 如何执行终端的ls命令？`!ls` 
 - 如何打印rax寄存器的内容？`p $rax` 
 - 如何监视rax的内容？`watch $rax` 
@@ -62,6 +68,8 @@
 - 如何打印所有函数的局部变量？`bt full`
 - 如何打印当前函数的局部变量？`info locals`
 - **如何打印STL容器中的内容？**
+- 如何按照派生类型打印类对象？` set print object on`
+- **如何打印程序动态分配内存的信息？**
 - 如何显示变量的类型？`whatis var`
   > ptype var 以更详细的方式显示变量var的类型。
 - 如何立即执行完当前的函数，但是并不是执行完整个应用程序？`finish`
@@ -74,6 +82,14 @@
 - 如何查看程序运行的路径？`show paths`
 - 如何设置程序的环境变量？`set env USER=hchen`
 - 如何查看程序的环境变量？`show environment [var]`
+- 如何查看信号的处理？`info signals或info handle`
+- 如何不处理信号？`handle SIGHUP nopass`
+- 如何恢复信号处理？` handle SIGHUP pass`
+- 如何给进程发送信号？`signal SIGHUP`
+- 如何列出所有共享库？`info sharedlibrary`
+  > info sharedlibrary regex 可以附带正则表达式去查询某个共享库。
+- 如何设置查找的源文件路径？`directory [dir]`
+- 如何替换源文件的查找路径？`substitute-path [new dir] [old dir]`
 ## 进程调试
 
 - 如何显示所有进程？`info inferiors`
@@ -99,9 +115,15 @@
   > - unload 或 unload <libname> 卸载共享库（动态链接库）时。（unload为关键字，目前此功能只在HP-UX下有用）
 - 如何查看该变量可能定义的文件？`info variables var`
   > info variables "^var$" 更严格的筛选
+- 如何调试已运行的进程？`attach [pid]`
+- 如何放弃调试已运行的进程？`detach`
+- 如何添加调试其他进程？`add-inferior [ -copies number ] [ -exec executable ]命令加载可执行文件b`
+- 如何打印进程空间信息？`maint info program-spaces`
+
 ## 线程调试
-  
-- set scheduler-locking
+
+- 如何只允许一个线程运行？`set scheduler-locking on`
+  > set scheduler-locking 命令除了支持off和on模式外（默认是off），还有一个step模式。含义是：当用"step"命令调试线程时，其它线程不会执行，但是用其它命令（比如"next"）调试线程时，其它线程也许会执行.
 - 如何查看所有线程？`info threads`
 - 如何使监视只对某线程生效？`watch [val] thread [threadnum]`
   
@@ -123,4 +145,30 @@ int main()
 ```
 先通过捕获系统调用`catch syscall ptrace`，然后通过`set $eax = 0`强制修改ptrace的返回值即可
 
-  
+## GDB脚本
+在`.gdbinit`文件中可以加入以下配置：
+```
+# 打印STL容器中的内容
+python
+import sys
+sys.path.insert(0, "/home/xmj/project/gcc-trunk/libstdc++-v3/python")
+from libstdcxx.v6.printers import register_libstdcxx_printers
+register_libstdcxx_printers (None)
+end
+
+# 保存历史命令
+set history filename ~/.gdb_history
+set history save on
+
+# 退出时不显示提示信息
+set confirm off
+
+# 按照派生类型打印对象
+set print object on
+
+# 打印数组的索引下标
+set print array-indexes on
+
+# 每行打印一个结构体成员
+set print pretty on
+```
