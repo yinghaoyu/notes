@@ -173,3 +173,5 @@ set print array-indexes on
 # 每行打印一个结构体成员
 set print pretty on
 ```
+## 参考资料
+[gdb调试手册](https://sourceware.org/gdb/documentation/)
