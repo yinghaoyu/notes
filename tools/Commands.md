@@ -27,3 +27,8 @@ cat /etc/services | grep telnet // 查看服务的端口号
 ```
 sudo !! // 会在命令行自动用sudo补充上一条命令
 ```
+
+### date
+```
+date -d @12312343452 // 打印时间戳的UTC
+```
