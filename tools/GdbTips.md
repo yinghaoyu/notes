@@ -174,4 +174,4 @@ set print array-indexes on
 set print pretty on
 ```
 ## 参考资料
-[gdb调试手册](https://sourceware.org/gdb/documentation/)
+[GDB: The GNU Project Debugger](https://sourceware.org/gdb/documentation/)
