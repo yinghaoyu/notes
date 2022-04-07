@@ -22,3 +22,8 @@ strace -f gcc hello.c 2>&1 | grep execve // 2>&1的意思就是将标准错误�
 ```
 cat /etc/services | grep telnet // 查看服务的端口号
 ```
+
+### sudo
+```
+sudo !! // 会在命令行自动用sudo补充上一条命令
+```
