@@ -1,6 +1,8 @@
 # 每天学一个vim技巧
 
 ## 一、基础操作
+vim -d a.txt b.txt可以比较文本（difference）
+
 i=insert
 shift + i 从行首进入insert模式
 
