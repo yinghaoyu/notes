@@ -22,7 +22,7 @@ strace -f gcc hello.c 2>&1 | grep execve // 2>&1的意思就是将标准错误�
 ```
 ltrace ls // 捕捉程序调用的动态库函数
 ```
-
+LD_PRELOAD，是个环境变量，用于动态库的加载，动态库加载的优先级最高
 ### File
 ```
 cat /etc/services | grep telnet // 查看服务的端口号
