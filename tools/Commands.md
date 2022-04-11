@@ -20,7 +20,7 @@ strace -f gcc hello.c 2>&1 | grep execve // 2>&1的意思就是将标准错误�
 
 ### ltrace
 ```
-ltrace ls // 捕捉程序调用的动态库
+ltrace ls // 捕捉程序调用的动态库函数
 ```
 
 ### File
