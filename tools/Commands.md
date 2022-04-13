@@ -53,3 +53,7 @@ taskset -cp [cpuid] [pid]
 perf record --call-graph dwarf timeout 1 ./a.out //收集执行1s的a.out的perf.data
 perf report // 查看统计的数据，主要是系统调用花费的时间等等
 ```
+### tty
+```
+stty -a // 可以查看终端的信息
+```
