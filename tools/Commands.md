@@ -78,3 +78,8 @@ timeout 1 ./a.out // 就算a.out是死循环，1秒后结束a.out的运行
 ```
 while true; ./a.out; end
 ```
+
+### 统计输出
+```
+./a.out | head -n 10000 | sort | uniq -C // 取出前10000行，排序，统计
+```
