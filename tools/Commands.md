@@ -73,3 +73,8 @@ sort -nk 6 // 把第6列当数字比较排序
 ```
 timeout 1 ./a.out // 就算a.out是死循环，1秒后结束a.out的运行
 ```
+
+### 如何让a.out重复运行(不修改a.out代码)?
+```
+while true; ./a.out; end
+```
