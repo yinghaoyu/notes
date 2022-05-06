@@ -63,3 +63,9 @@ stty -a // 可以查看终端的信息
 lspci -tv  //pci
 lsusb -tv  //usb
 ```
+
+### sort
+sort -nk 6 // 把第6列当数字比较排序
+
+### timeout
+timeout 1 ./a.out // 就算a.out是死循环，1秒后结束a.out的运行
