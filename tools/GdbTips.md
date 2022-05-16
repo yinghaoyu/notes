@@ -32,7 +32,7 @@
 - 如何列出所有监视？`info watchpoints`
   > 监视也支持disable、enable、delete操作
 - 哪些指令不支持time travel debuging？`syscall等`
-- 如何开始记录程序状态(不是万能的有些复杂的syscall不能记录)？`target record-full` `record full`
+- 如何开始记录程序状态(有些复杂的syscall不能记录)？`target record-full` `record full`
 - 如何结束记录程序状态？`record stop` 
 - 如何回退执行一条指令？(前提记录了程序状态的快照)`rsi` 
 - 如何添加条件断点？`breakpoint file:N if [var] > 0`
