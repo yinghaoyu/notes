@@ -93,3 +93,8 @@ free -m
 ```bash
 make -nB
 ```
+
+### Bear 捕捉compile_commands.json
+```bash
+bear make
+```
