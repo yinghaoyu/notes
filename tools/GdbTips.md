@@ -59,6 +59,7 @@
   > - n：输出单元的个数。
   > - f：是输出格式。比如x是以16进制形式输出，o是以8进制形式输出,等等。
   > - u：标明一个单元的长度。b是一个byte，h是两个byte（halfword），w是四个byte（word），g是八个byte（giant word）。
+- 如何查看内存信息？`info mem`
 - 如何打印数组的指定元素个数？`print *arr@10`
 - 如何打印从下标i开始指定j个元素的数组？`print arr[i]@[j]`
 - 如何打印数组的时候同时打印索引下标？`set print array-indexes on`
