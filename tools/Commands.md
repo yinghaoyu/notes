@@ -88,3 +88,8 @@ while true; do ./a.out; done
 ```bash
 free -m
 ```
+
+### 查看Makefile的所有编译
+```bash
+make -nB
+```
