@@ -47,6 +47,10 @@ renice -n [value] [pid]
 ### 绑定进程到cpu上
 ```bash
 taskset -cp [cpuid] [pid]
+
+taskset -c 0 nice -n 9 yes > /dev/null &
+taskset -c 0 nice -n 19 yes > /dev/null &
+top // 可以查看两个进程的cpu占有率
 ```
 ### perf
 ```bash
