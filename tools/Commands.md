@@ -91,6 +91,7 @@ while true; do ./a.out; done
 ### 查看系统内存
 ```bash
 free -m
+free -h
 ```
 
 ### 查看Makefile的所有编译
