@@ -103,3 +103,10 @@ make -nB
 ```bash
 bear make
 ```
+
+### 挂载文件系统
+```bash
+mount /usr/sda /mnt // 把/usr/sda挂载到/mnt上
+umount /mnt // 卸载文件系统
+lsblk // 查看块设备
+```
