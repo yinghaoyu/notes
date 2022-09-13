@@ -120,8 +120,10 @@ block nested loop join
 可以通过 `index` 来查找 `inner table`，避免每一次匹配 `outer table` 的一个 `tuple` 时需要遍历整个 `inner table`。
 
 index nested loop join
-假设每一次索引的耗时是常量 。
+假设每一次索引的耗时是常量 `C`。
 
+    cost = M + m * C
+   
 ### 优化
 - 选择尽可能小的表作为 outer table。
 - 缓存尽可能多的 outer table，针对于 block nested loop join，看 cost 可以看出来。
@@ -169,3 +171,6 @@ grace loop join
 |Indes Nested Loop Join|	M + M * C	|Variable|
 |Sort-Merge Join|	M + N + (sort cost)|	0.75 seconds|
 |Hash Join|	3(M + N)	|0.45 seconds|
+
+Reference
+[数据库查询实现原理](https://www.inlighting.org/archives/database-query-processing)
