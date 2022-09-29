@@ -56,6 +56,9 @@ top // 可以查看两个进程的cpu占有率
 ```bash
 perf record --call-graph dwarf timeout 1 ./a.out //收集执行1s的a.out的perf.data
 perf report // 查看统计的数据，主要是系统调用花费的时间等等
+
+perf record -g --call-graph fp ./a.out  // 收集执行a.out的perf.data
+perf report > record.txt  // record.txt树状打印统计数据
 ```
 ### tty
 ```bash
