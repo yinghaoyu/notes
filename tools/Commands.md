@@ -113,3 +113,9 @@ mount /usr/sda /mnt // 把/usr/sda挂载到/mnt上
 umount /mnt // 卸载文件系统
 lsblk // 查看块设备
 ```
+
+### 文件不小心删除，但使用文件的进程处于存活状态，恢复文件
+```bash
+cd /proc/pid/fd/   // 进入程序打开的文件
+cat fd > filename  // 把对应的fd重新输出到filename文件
+```
