@@ -91,6 +91,8 @@
   > info sharedlibrary regex 可以附带正则表达式去查询某个共享库。
 - 如何设置查找的源文件路径？`directory [dir]`
 - 如何替换源文件的查找路径？`substitute-path [new dir] [old dir]`
+- 如何打印错误码文本信息，而不用查看手册？`p strerror（errno）`
+
 ## 进程调试
 
 - 如何显示所有进程？`info inferiors`
