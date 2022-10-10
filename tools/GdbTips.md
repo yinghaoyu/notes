@@ -93,6 +93,7 @@
 - 如何替换源文件的查找路径？`substitute-path [new dir] [old dir]`
 - 如何打印错误码文本信息，而不用查看手册？`p strerror(errno)`
 - 如何查看当前函数的参数值？`info args`
+- 如何解决tui窗口不自动更新内容的问题？`space`
 
 ## 进程调试
 
