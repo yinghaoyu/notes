@@ -3,6 +3,10 @@ vim /etc/mysql/mysql.conf.d/mysqld.cnf
 
 任意主机以用户root和密码123456连接到mysql服务器
 ```
-mysql> GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '123456' WITH GRANT OPTION;
-mysql> flush privileges;
+ mysql> use mysql;
+ mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '123456';
+ mysql> flush privileges;
+ mysql> quit;
+ 
+ sudo service mysql restart
 ```
