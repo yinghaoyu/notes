@@ -1,4 +1,4 @@
-Leraning notes from yinghaoyu,
+Learning notes from yinghaoyu,
 
 you can copy and share, perform deductive creation, but not for commercial purposes,
 
