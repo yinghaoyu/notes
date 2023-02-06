@@ -10,3 +10,9 @@ vim /etc/mysql/mysql.conf.d/mysqld.cnf
  
  sudo service mysql restart
 ```
+
+修改mysql密码
+``` bash
+mysqladmin -u root -h 127.0.0.1 -p password "123456"
+// 然后输入旧密码
+```
