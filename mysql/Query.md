@@ -172,5 +172,5 @@ grace loop join
 |Sort-Merge Join|	M + N + (sort cost)|	0.75 seconds|
 |Hash Join|	3(M + N)	|0.45 seconds|
 
-Reference
+## Reference
 [数据库查询实现原理](https://www.inlighting.org/archives/database-query-processing)
