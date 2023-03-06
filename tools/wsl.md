@@ -1,3 +1,7 @@
+### 添加路由
+```bat
+route -p add 10.200.0.179(dest) mask 255.255.255.0 10.8.59.1(pass)
+```
 ### 端口转发
 ```bat
 netsh interface portproxy show all
