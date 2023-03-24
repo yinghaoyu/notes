@@ -39,9 +39,9 @@ key的过期造成高并发访问数据库。
 
 更多的说明见：
 
-(缓存穿透，缓存击穿，缓存雪崩解决方案分析)[https://blog.csdn.net/zeb_perfect/article/details/54135506]
+[缓存穿透，缓存击穿，缓存雪崩解决方案分析](https://blog.csdn.net/zeb_perfect/article/details/54135506)
 
-(缓存系列文章--8.热点key问题(mutex key))[https://www.iteye.com/blog/carlosfu-2269687]
+[缓存系列文章--8.热点key问题(mutex key)](https://www.iteye.com/blog/carlosfu-2269687)
 
 ### 主从DB与cache一致性
 [【原创】分布式之数据库和缓存双写一致性方案解析](https://www.cnblogs.com/rjzheng/p/9041659.html)
