@@ -119,3 +119,20 @@ lsblk // 查看块设备
 cd /proc/pid/fd/   // 进入程序打开的文件
 cat fd > filename  // 把对应的fd重新输出到filename文件
 ```
+
+### top 只看一个进程的状态
+```bash
+top -H -p pid
+```
+
+### netstat 看进程的连接数
+需下载 `net-tools`
+```bash
+netstat -ntlap | grep pid | wc -l
+```
+
+### ab 网页压测
+有点像webbench，需下载 `httpd-tools`
+```
+ab -n 10000 -c 200 -k "http://127.0.0.1/login"  // -n 表示连接数 -c 表示并发量 -k 表示长连接，可以不使用
+```
