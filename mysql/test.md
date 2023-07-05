@@ -17,3 +17,7 @@ select * from t where id = 3 for update 或者 update t set c=4 where id =3
 select * from t where id=1; 是一致性读，可能会触发 undo，导致查询变慢
 select * from t where id=1 lock in share mode; 是当前读
 ```
+
+```
+锁就是加在索引上的，这是InnoDB的一个基础设定
+```
