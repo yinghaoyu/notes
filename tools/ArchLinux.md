@@ -200,6 +200,8 @@ Include = /etc/pacman.d/archlinuxcn //这个文件需要手动创建
 添加Server=http地址
 
 pacman -Syyu后，root用户执行startx正常，而非root用户执行startx出现缺少模块错误。这个是为啥？
+
+pacman签名过期，重新安装一下archlinux-keyring
 ```
 ### 不能打开display
 ```
