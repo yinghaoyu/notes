@@ -12,11 +12,13 @@
   > set disassembly-flavor只能用在Intel x86处理器上，并且取值只有intel和att。
 - 如何查看汇编和源代码的映射？`disassemble /m [function]`
 - 如何分窗口查看汇编？`layout asm` 
-- 如何分窗口查看源码？`layout src` 
+- 如何分窗口查看源码？`layout src`
+- 如何切换切换窗口和命令行的焦点？`focus next` `focus prev`
 - 如何关闭分窗口？`Ctrl X A` 
 - 如何向前执行一条指令？`si(single step)`
 - 如何重复执行一条指令？`回车`
-- 如何跳转到某一行执行？`jump [linenumber]`
+- 如何跳转到某一行执行？（跳转区间内的指令不运行）`jump [linenumber]`
+- 如何运行到某一行？（跳转区间内的指令正常运行）`until [linenumber]`
 - 如何显示即将要执行的一条指令？`display /i $pc`
   > display /3i $pc 显示即将要执行的3条指令
 - 如何查看所有函数？`info functions`
@@ -55,6 +57,8 @@
   > - a 按十六进制格式显示变量。
   > - c 按字符格式显示变量。
   > - f 按浮点数格式显示变量。
+  >
+  > 记不住也没关系，`help x`即可显示所有格式信息
 - 如何打印内存值？`x/nfu addr`
   > - n：输出单元的个数。
   > - f：是输出格式。比如x是以16进制形式输出，o是以8进制形式输出,等等。
