@@ -7,3 +7,5 @@
 [https://build-bench.com/b/47ciR2_jQ0RuAt2fy1Pnk66b3yM](https://build-bench.com/b/47ciR2_jQ0RuAt2fy1Pnk66b3yM)
 
 [https://cppinsights.io/](https://cppinsights.io/)
+
+[ubuntu在线粘贴板](https://paste.ubuntu.com/)
