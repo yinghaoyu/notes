@@ -721,3 +721,34 @@ void fun2()
 }
 
 ```
+57、检测成员函数是否存在技巧
+```cpp
+template <class F>
+constexpr auto is_valid(F&& f) {
+  // is_valid 返回的是一个 labmda
+  // 这个 lambda 检查参数是否匹配，匹配返回true，否则返回false
+  return [f = std::forward<F>(f)](auto&&... args) constexpr {
+    // FIXME: Perfect forwarding.
+    return std::is_invocable_v<F, decltype(args)...>;
+  };
+}
+
+// `x` should be used as placeholder's name in` expr`.
+#define IS_VALID(expr) \
+  is_valid([](auto&& x) -> decltype(expr) {})  // 注意[](auto&& x) -> decltype(expr) {}是函数指针
+
+class C {
+ public:
+  string fun() { return "hello"; }
+};
+
+int main() {
+  C c;
+  auto has_fun = IS_VALID(c.fun());  // 检测 lambda
+  if(has_fun(c))  // 类成员函数隐藏参数c
+  {
+     c.fun();
+  }
+  return 0;
+}
+```
