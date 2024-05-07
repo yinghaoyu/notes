@@ -136,3 +136,9 @@ netstat -ntlap | grep pid | wc -l
 ```
 ab -n 10000 -c 200 -k "http://127.0.0.1/login"  // -n 表示连接数 -c 表示并发量 -k 表示长连接，可以不使用
 ```
+
+### base64 加密
+```bash
+echo '20520@126.com' | base64 -w 0
+echo 'MjA1MjBAMTI2LmNvbQo=' | base64 --decode
+```
