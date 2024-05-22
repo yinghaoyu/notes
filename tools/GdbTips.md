@@ -136,6 +136,7 @@
 - 如何查看所有线程？`info threads`
 - 如何切换线程？`thread [tid]`
 - 如何使监视只对某线程生效？`watch [val] thread [threadnum]`
+- 如何查看所有线程的堆栈信息？`thread apply all bt`
   
 ## 避开ptrace反追踪
 ```c
