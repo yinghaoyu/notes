@@ -1,259 +1,137 @@
-# 每天学一个vim技巧
+# vim进阶技巧
 
-## 一、基础操作
-vim -d a.txt b.txt可以比较文本（difference）
+## 基本操作
 
-i=insert
-shift + i 从行首进入insert模式
+- 如何用比较文本？`vim -d a.txt b.txt`
 
-a=append
-shift + a 从行尾进入insert模式
+  > d的含义为difference，也可以使用`diff a.txt b.txt`
 
-o 从下一新行进入insert模式
-shift + o 从上一新行进入insert模式
+- 如何在行首插入？`I`
 
-x 剪切光标字符（不进入insert模式），x最像剪刀
-s 删除光标字符并进入inser模式，slash
+- 如何在行尾插入？`A`
 
-左移h 下移j 上移k 右移l
+- 当你写入的行有缩进时，如何在当前行缩进地方插入？`S`
 
-ctrl + o 和ctrl+i切换历史光标，**可以跨文件**
+- 如果进行单词间的光标跳转？`w或e或b`
 
-## 二、Operation + motion
+  > w表示word，e表示单词的end，b表示单词begin
+  >
+  > 也可以结合数字，比如`5w` `4e` `3b`
 
-d+方向右，往右边删除字符，delete
+- 如何切换历史光标？`crtl o或者ctrl i`
 
-d+方向左，往左边删除字符
+  > 可以跨文件
 
-d + 3 + 方向左，往左边删除3字符
+- 如何关闭当前`tabe`？`:tabc`
 
-重复操作表示对行操作，d + d 对行进行剪切 ，p粘贴
+  > :表示命令模式
 
-相同操作c(change)会进入写入模式
+- 如何切换`tabe`?`:tabp或者:tabn`
 
-y复制操作，yy复制当前行（0行头$行尾）
+- 如何快速接换到第`2`个标签？`2gt`
 
-```txt
-<hello> <text me> you
-```
-w(word)操作定位到每个词
+- 如何在连续的行内，同一列插入一样的内容?`ctrl v进入VISUAL BLOCK模式，选中某列，shift i后写入内容，最后按ESC生效`
 
-c(change)+i(in)+w(word)表示在某个词中删除并开始编辑
+- 如何避免单词打错?`set spell开启拼写检查`
 
-光标在hello，删除hello并写入
+- 如何进行单词补全？`z=`
 
-光标在<text me>内。输入c + i + <会把text me全部删除并写入
+- 如何根据路径跳转到这个文件?`gf`
 
-同理y+i+w 复制hello, y+i+<复制text me
+- 如何查看某个字符的ASCII码？`ga`
 
-```txt
-this is vim : the best ...
-```
+- `vim`没有`sudo`权限，如何强制写入？`w !sudo tee %`
 
-f(find) v可以把光标移到vim开头find查找当前行，再按0可以回到行首
+  > w表示write，相当于把当前write内容通过管道让tee命令强制写入，!表示vim外部命令，%表示当前文件
 
-d+f+：删除到冒号
+- 如何把文件中所有的`printf("hello");`改成`cout << "hello" << endl;`？`:%s/printf("\(.*\)");/cout << "\1" << endl;/g`
 
-y+f+: 复制到冒号
+  > %表示当前文件，%s表示替换整个文件，如何替换当前行使用s就行
+  >
+  > 其中\(\)表示子表达式，\1是反向引用，\1是第一个子表达式，同理\2是第二个子表达式，可以理解为()表示捕获字符串，\1表示提取第一个捕获的字符串组
+  >
+  > /g表示替换本行的全部匹配项，如果不加，则只处理第一次匹配到的项
 
-## 三、标签tabe
+- 有时可视区域不够宽，而一行的字符有很多，导致了 wrap。那么通过`j或k` 是无法直观的定位到同一物理行，却不在同一个可视行里的位置，那么如何定位到可视行呢？`gj或者gk`
 
-:tabc关闭当前的tabe
+- 如何重复上一次的`f`查找操作？`;`
 
-:tabn切换下一个tabe
+- 如何重复上一次的操作？`.`
 
-:tabp切换前一个tabe
+  > . 用的好有奇效
 
-:tabs查看共有几个tabe
+- 如何通过vim查看ls命令行的输出?`ls | vim -`
 
-1gt快速切换到第1个tabe
+  > 再也不用担心终端不能翻页了！！！
 
-2gt快速切换到第2个tabe
+- 当输入路径时，如何补全路路径？`ctrl x f`
 
-## 四、标记mark
+- 光标下的数字如何自增自减？`ctrl a 和 ctrl x`
 
-ma文件内设置标记，名称为a
+  > 也可以结合数字 `5 ctrl a`表示增加5，`5 g ctrl a`让所有行递增 
 
-mA跨文件设置标记，名称为A
+- 怎么把100行的内容拼接成1行？`VISVAL模式选中所有行，输入J就会把所有行用空格拼接`
 
-mb文件内设置标记，名称为b
+- 当你想输入一个数组序列从0到100，怎么能快速输入？
 
-`a定位到标记a处（撇号+a）
+  ```bash
+  int arr = {
+  for i in `seq 0 100`;
+  do
+    echo $i
+  done
+  };
+  ```
 
-'a定位到标记a处的行首（单引号+a）
+  > visual模式选中bash脚本（也可以是python或者其他），输入`!bash`会生成0到100的序列，然后使用J把所有内容用空格拼接成1行，再输入`:s/ /,/g`把当前行的空格替换成逗号
 
-:marks 显示所有的标记
+* 怎么替换整行字符，变成`=`?`Vr=`
 
-:delmarks 删除指定的标记
+  > 在添加分割线的时候很好用，也可以用`<n>i=`然后`esc`退出，其中`<n>`表示需要多少个`=`字符
 
-:delmarks! 删除所有标记（大些字母的标记除外）
+* 怎么删除所有#开头的行？
 
-## 五、寄存器reg
+  > 搜索^#回车，然后输入`:g//d`，如果是要移动到末尾`:g//m$`，移动到开头`:g//m0`
 
-双引号）加上一个 a-z 的字母来给定义一个有名字的寄存器
+- 如何替换字符串`VimInHardWay`变成`v_VimInHardWay`？
 
-""表示无名寄存器
+  > 命令模式输入`%s/MetadataReader/v_MetadataReader/g`，如果你嫌弃`VimInHardWay`太长不想第二次输入，可以用&代替，`%s/MetadataReader/v_&/g`
 
-"ayy 表示的是复制当前行内容到 a 寄存器当中
-  
-"ap 表示的是从 a 寄存器当中取出内容
-  
-:reg a列出a寄存器的内容
+- 如何同时搜索两个单词？比如`good`和`bad`，并将这些单词后加上`_select`。
 
-## 六、提高操作
+  > 输入`/good\|bad`回车，命令模式输入`:%s//&_select`
 
-noremap E 5j 按一下E=5个j
+- 如何快速缩进一个段落？`>}或者>{`
 
-set hlsearch（hight search）查找高亮
+* 当你搜索到内容时，只想保留搜索到的项，删除其他内容怎么办？
 
-set incsearch边输入边高亮
+  > 比如搜索good | bad，然后命令模式输入`:vglobal//d`就会删除其他不匹配的行，`vglobal/vg`选中的是`global/g`的相反内容
 
-set ignorecase忽略大小写
+- 如果刚刚使用了一个很长的命令，然后想要修改怎么办？
 
-set smartcase搜索Max至显示Max，搜索max大小写MAX都显示
+  > `q/`进入命令行窗口，然后修改就可以了，回车就会执行
 
-syntax on 语法高亮
+* 如何在`visual`模式中修改另一个方向的范围？`o`
 
-set number/nonumber 显示行号
+- 当你忘记目录层级和目录名，但是知道文件名，怎么打开这个文件？`:e **/test.txt`
+- 如何回退到5秒钟前的buffer？`earlier 5s`
+- 如何打开自带的目录栏？`:Sex 或者:Vex`
 
-set relativenumber 显示分段set行号
+## 标记mark
 
-set cursorline 显示鼠标线
+- 如何设置当前文件标记？`ma(名称为a,也可以mb mc...)`
 
-set warp 显示不超过屏幕，自动换行显示
+- 如何设置跨文件标记？`mA(名称为A,也可以mB mC...)`
 
-set showcmd 命令行显示指令
-set wildmenu tab指令提示
+- 如何定位到标记`a`处？``a`
+- 如何定位到标记`a`处的行首？`'a`
+- 如何显示所有的标记？`:marks`
+- 如何删除指定的标记？`:delmarks`
 
-noremap n h 改键位
-map Q  :q!<CR>
-map s <nop>
-map R :source $MYVIMRC<CR>
+## 寄存器reg
 
-:set splitright/nosplitleft可设置分屏左右光标
-set nosplitbelow上下
+- 如何复制当前行到寄存器`a`？`"ayy(寄存器名也可以是a b c...)`
+- 如何粘贴寄存器`a`的内容到当前行？`"ap`
+- 如何查看寄存器`a`的内容？`:reg a`
 
-:split上下分屏
-:vsplit左右分屏
-:q退出分屏
-:e(edit) +路径 分屏打开文件
-ctrl + w + h分屏光标移动至左边
-
-:res+-5更改上下分屏大小
-:vertical resize+-5更改左右分屏大小
-
-:tabe 打开标签页
-:-tabnext上一页
-:+tabnext下一页
-
-ctrl+w+t+ctrl+w+H交换分屏方式
-ctrl+w+t+ctrl+w+K
-
-:color default 设置背景色
-
-## 七、Version模式
-
-v进入version模式，可以v后，上下左右选中+y复制
-
-:normal Imy在选中行头I加my
-
-:normal A.png在选中行尾A加.png
-
-shift+v+g选中所有（normal 模式下gg会把光标移动至开头G移动最后）
-
-ctrl+v进入可视块 选中可以d操作，shift+i插入，按esc就生效
-
-set mouse=a设置鼠标可用
-
-set scrolloff = 5浏览时设置光标预留5行，保证到文件尾，看起来不舒服
-
-set spell拼写检查
-:z=会出现可供参考的词
-或者ctrl +x +s
-
-在normal模式gf+路径，打开文件
-
-**没有sudo权限可用**
-
-:w+路径 可以保存进一个新文件
-  
-w !sudo tee % !表示终端指令， %表示当前文件
-
-<++>占位符
-map <LEADER><LEADER> <ESC>/<++><CR>:nohlsearch<CR>c4l
-
-figlet安装
-
-:%TOhtml转HTML
-
-set clipboard=unnamedplus剪贴板变为系统剪贴板
-
-“ 、+号、y将vim剪贴板内容复制到系统剪贴板
-
-vnoremap Y "+y可视模式下将Y绑定
-
-把内容复制到buffer
-"b yy
-
-"a yy
-
-"A yy 把内容补充到a
-
-"a p
-
-:help 打开帮助
-：checkhealth查看安装情况
-  
-
-## 八、段首位添加字符
-
-比如有一个txt文档：
-
-```txt
-This is a test
-This is a test, oh my god !!!
-This is a test, oh no !
-This is a test, wow !
-This is a test, what ?
-This is a test, really ?
-This is a test, seriously ?
-
-no, you are right
-yes, you are right
-no, you are wrong
-```
-
-假如我们想要在段首加上`<begin>`，在段尾加`<end>`，然后在每行尾部加上`\\`，变成下面这样。
-
-```txt
-<begin>
-This is a test \\
-This is a test, oh my god !!! \\
-This is a test, oh no ! \\
-This is a test, wow ! \\
-This is a test, what ? \\
-This is a test, really ? \\
-This is a test, seriously ? \\
-<end>
-
-<begin>
-no, you are right \\
-yes, you are right \\
-no, you are wrong \\
-<end>
-```
-
-怎么办呢？我们可以先录制一个宏：
-
-`esc q a { O <begin> esc } o <end> esc k V { :norm A \\ q`
-
-`{`表示到段首，`}`表示到段尾， `V {`其中`V`表示选中整个句子， `V {`表示选中从当前句子直到段首,`:norm A \\`表示在所有选中行尾部添加`\\`
-
-然后`@a`执行，这一段就会被格式化了。
-
-## 九、替换
-把文件中所有printf("hello");改成cout << "hello" << endl;
-```
-:%s/printf("\(.*\)");/cout << \1 << endl;/g
-```
-其中\(\)表示子表达式，\1是反向引用，\1是第一个子表达式，同理\2是第二个子表达式
+> ""表示无名寄存器
