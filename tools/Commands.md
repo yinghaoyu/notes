@@ -142,3 +142,11 @@ ab -n 10000 -c 200 -k "http://127.0.0.1/login"  // -n 表示连接数 -c 表示�
 echo '20520@126.com' | base64 -w 0
 echo 'MjA1MjBAMTI2LmNvbQo=' | base64 --decode
 ```
+
+### linux库相关
+一般`C/C++`程序编译时，默认查找的头文件路径为`/usr/include`或者`/usr/local/include`，链接时使用的库路径为`/usr/lib`或者`/usr/local/lib`
+
+在运行时为了方便，直接把库放到可执行文件同一路径下。那么如何指定运行时库路径呢？
+
+可以在`/etc/ld.so.conf.d`目录下创建一个自定义库配置文件，例如`/etc/ld.so.conf.d/mylib.conf`
+，文件内容填上库所在的路径比如`/usr/test/lib`，然后运行`ldconfig`命令刷新系统运行动态库信息，即可实现。
